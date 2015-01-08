@@ -7,7 +7,8 @@ require "libraries.keyboard"
 --gets called when the game starts
 function love.load()
   pause = false
-
+  
+  pauseFont = love.graphics.newFont(50)
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
   player = {x = 250, y = 250, height = 15, width = 15, health = 100}

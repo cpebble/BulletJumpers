@@ -9,6 +9,13 @@ if not pause then
     objects.ball.body:applyForce(0,-1000)
   end
 end
+end
+function love.keyreleased(key,unicode)
+  if key == "escape" then
+  if pause then pause = false else
+  if not pause then pause = true end end
+end
+end
 --[[
 if love.keyboard.isDown("escape") then escapeDown = true end
 if escapeDown then
@@ -21,4 +28,3 @@ if escapeUp then
 end
 end
 ]]
-end

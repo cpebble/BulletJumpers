@@ -27,4 +27,7 @@ function visualize()
   -- Sets the color to white
   love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+  
+  
+  
 end
