@@ -7,6 +7,8 @@ require "libraries.keyboard"
 
 --gets called when the game starts
 function love.load()
+  pause = false
+
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
   player = {x = 250, y = 250, height = 15, width = 15, health = 100}
@@ -51,13 +53,15 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
-  gameLoop(dt)
+  if pause == false then
+    gameLoop(dt)
+  end
 end
 
 
 --gets called when a key is pressed
 function love.keypressed(key)
-  
+  processKey(key)
 end
 
 --is continuely updated
