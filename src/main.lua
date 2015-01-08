@@ -3,7 +3,6 @@ require "libraries.loop"
 require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
-require "libraries.keyboard"
 
 --gets called when the game starts
 function love.load()
