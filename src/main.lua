@@ -80,7 +80,8 @@ function love.draw()
    love.graphics.circle("fill",v.x,v.y,3)
   end
   -- Draw the circle.
-  love.graphics.draw(ball,body:getX(), body:getY(), body:getAngle(),1,1,32,32)
+  --love.graphics.draw(ball,body:getX(), body:getY(), body:getAngle(),1,1,32,32)
+  love.graphics.circle(ball,body:getX(),body:getY(),90)
 end
 
 --gets called when mouse is clicked
