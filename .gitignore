@@ -183,6 +183,8 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
+#Build stuff
+buildLog.txt
 
 #############
 ## Python

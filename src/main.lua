@@ -13,7 +13,6 @@ function love.load()
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
   player = {x = 250, y = 250, height = 15, width = 15, health = 100, Speed = 400}
-  playerWeapons = {"Pistol"}
   
   --array to hold the bullets
   bullets = {}
@@ -22,7 +21,7 @@ function love.load()
   -- One meter is 32px in physics engine
   love.physics.setMeter(32)
   -- Create a world with standard gravity
-  world = love.physics.newWorld(0, 0.981*32, true)
+  world = love.physics.newWorld(0, 9.81*32, true)
   initializeObjects()
   
   
