@@ -3,7 +3,7 @@ function initBlocks()
   objects.block1 = {}
   objects.block1.body = love.physics.newBody(world,200,550,"dynamic")
   objects.block1.shape = love.physics.newRectangleShape(0,0,50,100)
-  objects.block1.fixture = love.physics.newFixture(objects.block1.body,objects.block1.shape,5)
+  objects.block1.fixture = love.physics.newFixture(objects.block1.body,objects.block1.shape,3)
   
   objects.block2 = {}
   objects.block2.body = love.physics.newBody(world,200,400,"dynamic")

@@ -11,13 +11,9 @@ function shoot(x,y,button)
   -- Checks if you want to shoot
   if button == "l" then
     -- Whether to shoot from left or right side
-    if x > player.x then
-    --cant make this local. dont use this variable elsewhere
-      GunX = player.x + player.width
-    else
-      GunX = player.x
-    end
-    local GunY = player.y + player.height/2
+
+    local GunX = objects.player.shape:getX()
+    local GunY = objects.player.shape:getY()
     local mouseX = x
     local mouseY = y
     

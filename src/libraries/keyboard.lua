@@ -2,13 +2,13 @@ function processKey()
 if not pause then
 -- Moves the ball
   if love.keyboard.isDown("right") then
-    objects.ball.body:applyForce(player.Speed,0)
+    objects.player.body:applyForce(player.Speed,0)
   end
   if love.keyboard.isDown("left") then
-    objects.ball.body:applyForce(-player.Speed, 0)
+    objects.player.body:applyForce(-player.Speed, 0)
   end
   if love.keyboard.isDown("up") then
-    objects.ball.body:applyForce(0,-1000)
+    objects.player.body:applyForce(0,-1000)
   end
   end
 end
