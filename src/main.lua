@@ -11,7 +11,7 @@ function love.load()
   pauseFont = love.graphics.newFont(50)
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
-  player = {x = 250, y = 250, height = 15, width = 15, health = 100}
+  player = {x = 250, y = 250, height = 15, width = 15, health = 100, Speed = 400}
   playerWeapons = {"Pistol"}
   
   --array to hold the bullets
@@ -27,8 +27,8 @@ function love.load()
   objects = {}
   --Creating the ground
   objects.ground = {}
-  objects.ground.body = love.physics.newBody(world,1024/2,1200/2)
-  objects.ground.shape = love.physics.newRectangleShape(1024, 50)
+  objects.ground.body = love.physics.newBody(world,love.graphics.getWidth()/2,love.graphics.getHeight()-25)
+  objects.ground.shape = love.physics.newRectangleShape(love.graphics.getWidth(), 50)
   --attaching the shape to the body
   objects.ground.fixture = love.physics.newFixture(objects.ground.body,objects.ground.shape) 
   
@@ -38,7 +38,7 @@ function love.load()
   objects.ball.body = love.physics.newBody(world,650/2,650/2,"dynamic")
   objects.ball.shape = love.physics.newCircleShape(20)
   objects.ball.fixture = love.physics.newFixture(objects.ball.body,objects.ball.shape,1)
-  objects.ball.fixture:setRestitution(0.9)
+  objects.ball.fixture:setRestitution(0.1)
   
   objects.block1 = {}
   objects.block1.body = love.physics.newBody(world,200,550,"dynamic")
@@ -49,7 +49,7 @@ function love.load()
   objects.block2.body = love.physics.newBody(world,200,400,"dynamic")
   objects.block2.shape = love.physics.newRectangleShape(0,0,100,50)
   objects.block2.fixture = love.physics.newFixture(objects.block2.body,objects.block2.shape,2)
-  
+  objects.block1.fixture:setRestitution(0.9)
 end
 --the game loop
 function love.update(dt)
