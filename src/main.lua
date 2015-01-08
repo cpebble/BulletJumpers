@@ -52,7 +52,7 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
-<<<<<<< HEAD
+
   world:update(dt)
   
   -- Moves the ball
@@ -72,11 +72,10 @@ function love.update(dt)
   end
   gameLoop(dt)
   
-=======
+
   if pause == false then
     gameLoop(dt)
   end
->>>>>>> origin/physics
 end
 
 
@@ -88,10 +87,21 @@ end
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
-<<<<<<< HEAD
   -- set color green; draw the ground
   love.graphics.setColor(72, 160, 14)
   love.graphics.polygon("fill",objects.ground.body:getWorldPoints(objects.ground.shape:getPoints()))
+  
+  
+  -- Sets the color to white
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+  
+  love.graphics.setColor(128, 128, 128)
+  for i,v in ipairs(bullets) do
+   love.graphics.circle("fill",v.x,v.y,3)
+  end
+  -- Draw the circle.
+  --love.graphics.circle(ball,body:getX(),body:getY(),90)
   
   -- Set color red to draw the ball
   love.graphics.setColor(193,47,14)
@@ -111,14 +121,13 @@ function love.draw()
    love.graphics.circle("fill",v.x,v.y,3)
   end
   
-=======
-  visualize()
->>>>>>> origin/physics
+
+
 end
 
 --gets called when mouse is clicked
 function love.mousepressed(x, y, button)
-<<<<<<< HEAD
+
   --bullets = object.bullets:maxlen
   if button == "l" then
   
@@ -147,7 +156,7 @@ function love.mousepressed(x, y, button)
     table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
     ]]
   --end
-=======
+
   processClick(x,y,button)
->>>>>>> origin/physics
+
 end
