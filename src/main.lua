@@ -3,6 +3,7 @@ require "libraries.loop"
 require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
+require "objects"
 
 --gets called when the game starts
 function love.load()
@@ -19,37 +20,12 @@ function love.load()
   bulletSpeed = 250
 
   -- One meter is 32px in physics engine
-  love.physics.setMeter( 32 )
-
+  love.physics.setMeter(32)
   -- Create a world with standard gravity
-  world = love.physics.newWorld(0, 9.81*32, true)
+  world = love.physics.newWorld(0, 0.981*32, true)
+  initializeObjects()
   
-  objects = {}
-  --Creating the ground
-  objects.ground = {}
-  objects.ground.body = love.physics.newBody(world,love.graphics.getWidth()/2,love.graphics.getHeight()-25)
-  objects.ground.shape = love.physics.newRectangleShape(love.graphics.getWidth(), 50)
-  --attaching the shape to the body
-  objects.ground.fixture = love.physics.newFixture(objects.ground.body,objects.ground.shape) 
   
-  --creating a ball
-  objects.ball = {}
-  --Placing it in the center of the world. Dynamic makes it able to move
-  objects.ball.body = love.physics.newBody(world,650/2,650/2,"dynamic")
-  objects.ball.shape = love.physics.newCircleShape(20)
-  objects.ball.fixture = love.physics.newFixture(objects.ball.body,objects.ball.shape,1)
-  objects.ball.fixture:setRestitution(0.1)
-  
-  objects.block1 = {}
-  objects.block1.body = love.physics.newBody(world,200,550,"dynamic")
-  objects.block1.shape = love.physics.newRectangleShape(0,0,50,100)
-  objects.block1.fixture = love.physics.newFixture(objects.block1.body,objects.block1.shape,5)
-  
-  objects.block2 = {}
-  objects.block2.body = love.physics.newBody(world,200,400,"dynamic")
-  objects.block2.shape = love.physics.newRectangleShape(0,0,100,50)
-  objects.block2.fixture = love.physics.newFixture(objects.block2.body,objects.block2.shape,2)
-  objects.block1.fixture:setRestitution(0.9)
 end
 --the game loop
 function love.update(dt)
@@ -61,8 +37,6 @@ function love.update(dt)
     v.y = v.y + (v.dy * dt)
   end
   
-  
-
   if pause == false then
     gameLoop(dt)
   end
@@ -72,22 +46,11 @@ end
 --all drawing on screen must happen here
 function love.draw()
   visualize()
-  
-  love.graphics.setColor(128, 128, 128)
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
-  end
-  
-
-
+  drawObjects()
 end
 
---gets called when mouse is clicked
 function love.mousepressed(x, y, button)
-
-  --bullets = object.bullets:maxlen
   if button == "l" then
-  
 
   end
 --[[  -- Checks if you want to shoot
