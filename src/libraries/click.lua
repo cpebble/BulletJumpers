@@ -3,7 +3,7 @@ function processClick(x,y,button)
   if pause == false then
     shoot(x,y,button)
   else
-    interactGUI(x,y,button)
+    handleGUI(x,y,button)
   end
 end
 
@@ -30,6 +30,6 @@ function shoot(x,y,button)
   end
 end
 
-function interactGUI(x,y,button)
+function handleGUI(x,y,button)
 
 end
