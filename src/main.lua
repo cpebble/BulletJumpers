@@ -1,9 +1,10 @@
 --includes other lua files
 require "libraries.loop"
+require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
 require "libraries.keyboard"
-asdf = 0
+
 --gets called when the game starts
 function love.load()
   love.graphics.setBackgroundColor(54, 172, 248)
@@ -50,14 +51,7 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
-
-  -- Updates the bullets position with bulletvelocity times delta time
-  for i,v in ipairs(bullets) do
-    v.x = v.x + (v.dx * dt)
-    v.y = v.y + (v.dy * dt)
-  end
   gameLoop(dt)
-  world:update(dt)
 end
 
 
@@ -69,41 +63,10 @@ end
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
-  -- Draws the ground.
-  love.graphics.polygon("line", ground:getWorldPoints(ground_shape:getPoints()))
-  -- Sets the color to white
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-  
-  love.graphics.setColor(128, 128, 128)
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
-  end
-  -- Draw the circle.
-  --love.graphics.draw(ball,body:getX(), body:getY(), body:getAngle(),1,1,32,32)
-  love.graphics.circle(ball,body:getX(),body:getY(),90)
+  visualize()
 end
 
 --gets called when mouse is clicked
 function love.mousepressed(x, y, button)
-  -- Checks if you want to shoot
-  if button == "l" then
-    -- Whether to shoot from left or right side
-    if x > player.x then
-    --cant make this local. dont use this variable elsewhere
-      GunX = player.x + player.width
-    else
-      GunX = player.x
-    end
-    local GunY = player.y + player.height/2
-    local mouseX = x
-    local mouseY = y
-    
-    local angle = math.atan2((mouseY - GunY),(mouseX - GunX))
-    
-    local bulletDx = bulletSpeed * math.cos(angle)
-    local bulletDy = bulletSpeed * math.sin(angle)
-    
-    table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
-  end
+  processClick(x,y,button)
 end
