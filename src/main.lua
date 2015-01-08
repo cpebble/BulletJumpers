@@ -1,11 +1,13 @@
 --includes other lua files
 require "libraries.loop"
+require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
-require "libraries.keyboard"
-asdf = 0
+
 --gets called when the game starts
 function love.load()
+  pause = false
+
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
   player = {x = 250, y = 250, height = 15, width = 15, health = 100}
@@ -50,6 +52,7 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
+<<<<<<< HEAD
   world:update(dt)
   
   -- Moves the ball
@@ -69,17 +72,23 @@ function love.update(dt)
   end
   gameLoop(dt)
   
+=======
+  if pause == false then
+    gameLoop(dt)
+  end
+>>>>>>> origin/physics
 end
 
 
 --gets called when a key is pressed
 function love.keypressed(key)
-  
+  processKey(key)
 end
 
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
+<<<<<<< HEAD
   -- set color green; draw the ground
   love.graphics.setColor(72, 160, 14)
   love.graphics.polygon("fill",objects.ground.body:getWorldPoints(objects.ground.shape:getPoints()))
@@ -102,10 +111,14 @@ function love.draw()
    love.graphics.circle("fill",v.x,v.y,3)
   end
   
+=======
+  visualize()
+>>>>>>> origin/physics
 end
 
 --gets called when mouse is clicked
 function love.mousepressed(x, y, button)
+<<<<<<< HEAD
   --bullets = object.bullets:maxlen
   if button == "l" then
   
@@ -134,4 +147,7 @@ function love.mousepressed(x, y, button)
     table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
     ]]
   --end
+=======
+  processClick(x,y,button)
+>>>>>>> origin/physics
 end
