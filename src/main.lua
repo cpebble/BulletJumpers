@@ -6,7 +6,12 @@ require "libraries.keyboard"
 
 --gets called when the game starts
 function love.load()
-  pause = false
+  --if the game is paused (in a menu)
+  pause = true
+  --what menu-screen should be displayed
+  GUIscreen = 0
+  
+  title = love.graphics.newImage("graphics/titlescreen.png")
 
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
@@ -48,115 +53,37 @@ function love.load()
   objects.block2.body = love.physics.newBody(world,200,400,"dynamic")
   objects.block2.shape = love.physics.newRectangleShape(0,0,100,50)
   objects.block2.fixture = love.physics.newFixture(objects.block2.body,objects.block2.shape,2)
-  
 end
 --the game loop
 function love.update(dt)
-
-  world:update(dt)
-  
-  -- Moves the ball
-  if love.keyboard.isDown("right") then
-    objects.ball.body:applyForce(400,0)
-  elseif love.keyboard.isDown("left") then
-    objects.ball.body:applyForce(-400, 0)
-  elseif love.keyboard.isDown("up") then
-    objects.ball.body:applyForce(0,-1000)
-  
-  end
-  
-  -- Updates the bullets position with bulletvelocity times delta time
-  for i,v in ipairs(bullets) do
-    v.x = v.x + (v.dx * dt)
-    v.y = v.y + (v.dy * dt)
-  end
-  gameLoop(dt)
-  
-
+  --checks if game is paused and if it should update
   if pause == false then
     gameLoop(dt)
   end
 end
 
-
 --gets called when a key is pressed
 function love.keypressed(key)
+  --leads to libraries.keyboard
   processKey(key)
 end
 
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
-  -- set color green; draw the ground
-  love.graphics.setColor(72, 160, 14)
-  love.graphics.polygon("fill",objects.ground.body:getWorldPoints(objects.ground.shape:getPoints()))
-  
-  
-  -- Sets the color to white
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-  
-  love.graphics.setColor(128, 128, 128)
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
-  end
-  -- Draw the circle.
-  --love.graphics.circle(ball,body:getX(),body:getY(),90)
-  
-  -- Set color red to draw the ball
-  love.graphics.setColor(193,47,14)
-  love.graphics.circle("fill", objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
-  
-  -- draw the 2 blocks
-  love.graphics.setColor(122, 200, 73)
-  love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
-  love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
-  
-  -- Sets the color to white
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-  
-  love.graphics.setColor(128, 128, 128)
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
+  --leads to libraries.graphics
+  if pause == false then
+    visualize()
+  else
+    drawMenu()
   end
   
-
-
+  
 end
 
 --gets called when mouse is clicked
 function love.mousepressed(x, y, button)
-
-  --bullets = object.bullets:maxlen
-  if button == "l" then
-  
-  
-  
-
-  end
---[[  -- Checks if you want to shoot
-  if button == "l" then
-    -- Whether to shoot from left or right side
-    if x > player.x then
-    --cant make this local. dont use this variable elsewhere
-      GunX = player.x + player.width
-    else
-      GunX = player.x
-    end
-    local GunY = player.y + player.height/2
-    local mouseX = x
-    local mouseY = y
-    
-    local angle = math.atan2((mouseY - GunY),(mouseX - GunX))
-    
-    local bulletDx = bulletSpeed * math.cos(angle)
-    local bulletDy = bulletSpeed * math.sin(angle)
-    
-    table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
-    ]]
-  --end
-
+  --leads to libraries.click
   processClick(x,y,button)
 
 end

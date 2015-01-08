@@ -31,5 +31,9 @@ function shoot(x,y,button)
 end
 
 function handleGUI(x,y,button)
-
+  if GUIscreen == 0 then
+    if x < love.graphics.getWidth()/4 and y > (love.graphics.getHeight()/10)*9 then
+      pause = false
+    end
+  end
 end
