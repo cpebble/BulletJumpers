@@ -15,49 +15,60 @@ function love.load()
   bullets = {}
   bulletSpeed = 250
 
-    -- One meter is 32px in physics engine
+  -- One meter is 32px in physics engine
   love.physics.setMeter( 32 )
 
   -- Create a world with standard gravity
   world = love.physics.newWorld(0, 9.81*32, true)
-
-  -- Create the ground body at (0, 0) static
-  ground = love.physics.newBody(world, 0, 0, "static")
   
-  -- Create the ground shape at (400,500) with size (600,10).
-  ground_shape = love.physics.newRectangleShape( 400, 500, 600, 10)
-
-  -- Create fixture between body and shape
-  ground_fixture = love.physics.newFixture( ground, ground_shape)
-
-  -- Load the image of the ball.
-  ball = love.graphics.newImage("graphics/ball.png")
-
-  -- Create a Body for the circle
-  body = love.physics.newBody(world, 400, 200, "dynamic")
+  objects = {}
+  --Creating the ground
+  objects.ground = {}
+  objects.ground.body = love.physics.newBody(world,1024/2,1200/2)
+  objects.ground.shape = love.physics.newRectangleShape(1024, 50)
+  --attaching the shape to the body
+  objects.ground.fixture = love.physics.newFixture(objects.ground.body,objects.ground.shape) 
   
-  -- Attatch a shape to the body.
-  circle_shape = love.physics.newCircleShape( 0,0,90)
-
-    -- Create fixture between body and shape
-    fixture = love.physics.newFixture( body, circle_shape)
-
-  -- Calculate the mass of the body based on attatched shapes.
-  -- This gives realistic simulations.
-    body:setMassData(circle_shape:computeMass( 1 ))
-    world:setCallbacks(beginContact)
+  --creating a ball
+  objects.ball = {}
+  --Placing it in the center of the world. Dynamic makes it able to move
+  objects.ball.body = love.physics.newBody(world,650/2,650/2,"dynamic")
+  objects.ball.shape = love.physics.newCircleShape(20)
+  objects.ball.fixture = love.physics.newFixture(objects.ball.body,objects.ball.shape,1)
+  objects.ball.fixture:setRestitution(0.9)
+  
+  objects.block1 = {}
+  objects.block1.body = love.physics.newBody(world,200,550,"dynamic")
+  objects.block1.shape = love.physics.newRectangleShape(0,0,50,100)
+  objects.block1.fixture = love.physics.newFixture(objects.block1.body,objects.block1.shape,5)
+  
+  objects.block2 = {}
+  objects.block2.body = love.physics.newBody(world,200,400,"dynamic")
+  objects.block2.shape = love.physics.newRectangleShape(0,0,100,50)
+  objects.block2.fixture = love.physics.newFixture(objects.block2.body,objects.block2.shape,2)
   
 end
 --the game loop
 function love.update(dt)
-
+  world:update(dt)
+  
+  -- Moves the ball
+  if love.keyboard.isDown("right") then
+    objects.ball.body:applyForce(400,0)
+  elseif love.keyboard.isDown("left") then
+    objects.ball.body:applyForce(-400, 0)
+  elseif love.keyboard.isDown("up") then
+    objects.ball.body:applyForce(0,-1000)
+  
+  end
+  
   -- Updates the bullets position with bulletvelocity times delta time
   for i,v in ipairs(bullets) do
     v.x = v.x + (v.dx * dt)
     v.y = v.y + (v.dy * dt)
   end
   gameLoop(dt)
-  world:update(dt)
+  
 end
 
 
@@ -69,8 +80,19 @@ end
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
-  -- Draws the ground.
-  love.graphics.polygon("line", ground:getWorldPoints(ground_shape:getPoints()))
+  -- set color green; draw the ground
+  love.graphics.setColor(72, 160, 14)
+  love.graphics.polygon("fill",objects.ground.body:getWorldPoints(objects.ground.shape:getPoints()))
+  
+  -- Set color red to draw the ball
+  love.graphics.setColor(193,47,14)
+  love.graphics.circle("fill", objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
+  
+  -- draw the 2 blocks
+  love.graphics.setColor(122, 200, 73)
+  love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
+  love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
+  
   -- Sets the color to white
   love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
@@ -79,14 +101,19 @@ function love.draw()
   for i,v in ipairs(bullets) do
    love.graphics.circle("fill",v.x,v.y,3)
   end
-  -- Draw the circle.
-  --love.graphics.draw(ball,body:getX(), body:getY(), body:getAngle(),1,1,32,32)
-  love.graphics.circle(ball,body:getX(),body:getY(),90)
+  
 end
 
 --gets called when mouse is clicked
 function love.mousepressed(x, y, button)
-  -- Checks if you want to shoot
+  --bullets = object.bullets:maxlen
+  if button == "l" then
+  
+  
+  
+
+  end
+--[[  -- Checks if you want to shoot
   if button == "l" then
     -- Whether to shoot from left or right side
     if x > player.x then
@@ -105,5 +132,6 @@ function love.mousepressed(x, y, button)
     local bulletDy = bulletSpeed * math.sin(angle)
     
     table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
-  end
+    ]]
+  --end
 end
