@@ -52,25 +52,14 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
-
-  world:update(dt)
-  
-  -- Moves the ball
-  if love.keyboard.isDown("right") then
-    objects.ball.body:applyForce(400,0)
-  elseif love.keyboard.isDown("left") then
-    objects.ball.body:applyForce(-400, 0)
-  elseif love.keyboard.isDown("up") then
-    objects.ball.body:applyForce(0,-1000)
-  
-  end
+  processKey()
   
   -- Updates the bullets position with bulletvelocity times delta time
   for i,v in ipairs(bullets) do
     v.x = v.x + (v.dx * dt)
     v.y = v.y + (v.dy * dt)
   end
-  gameLoop(dt)
+  
   
 
   if pause == false then
@@ -78,43 +67,10 @@ function love.update(dt)
   end
 end
 
-
---gets called when a key is pressed
-function love.keypressed(key)
-  processKey(key)
-end
-
 --is continuely updated
 --all drawing on screen must happen here
 function love.draw()
-  -- set color green; draw the ground
-  love.graphics.setColor(72, 160, 14)
-  love.graphics.polygon("fill",objects.ground.body:getWorldPoints(objects.ground.shape:getPoints()))
-  
-  
-  -- Sets the color to white
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
-  
-  love.graphics.setColor(128, 128, 128)
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
-  end
-  -- Draw the circle.
-  --love.graphics.circle(ball,body:getX(),body:getY(),90)
-  
-  -- Set color red to draw the ball
-  love.graphics.setColor(193,47,14)
-  love.graphics.circle("fill", objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
-  
-  -- draw the 2 blocks
-  love.graphics.setColor(122, 200, 73)
-  love.graphics.polygon("fill", objects.block1.body:getWorldPoints(objects.block1.shape:getPoints()))
-  love.graphics.polygon("fill", objects.block2.body:getWorldPoints(objects.block2.shape:getPoints()))
-  
-  -- Sets the color to white
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+  visualize()
   
   love.graphics.setColor(128, 128, 128)
   for i,v in ipairs(bullets) do
@@ -130,8 +86,6 @@ function love.mousepressed(x, y, button)
 
   --bullets = object.bullets:maxlen
   if button == "l" then
-  
-  
   
 
   end
