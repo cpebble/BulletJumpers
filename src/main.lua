@@ -2,6 +2,7 @@
 require "libraries.loop"
 require "libraries.click"
 require "libraries.keyboard"
+require "libraries.keyboard"
 asdf = 0
 --gets called when the game starts
 function love.load()
