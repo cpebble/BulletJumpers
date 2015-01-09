@@ -7,6 +7,8 @@ require "objects.bullets"
 function initializeObjects()
 objects = {}
 
+  initBullets()
+  
   initGround()
   
   initSkyBox()
@@ -15,6 +17,11 @@ objects = {}
   
   initBlocks()
 end
+
+function updateObjects(dt)
+  updateBullets(dt)
+end
+
 function drawObjects()
   drawGround()
   
