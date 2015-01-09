@@ -1,6 +1,5 @@
 --includes other lua files
 require "libraries.loop"
-require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
 asdf = 0
@@ -24,9 +23,7 @@ function love.keypressed(key)
 end
 
 --is continuely updated
---all drawing on screen must happen in this function
---(or functions called here)
+--all drawing on screen must happen here
 function love.draw()
     love.graphics.print('Hello World!', asdf, 300)
-    visualize()
 end
