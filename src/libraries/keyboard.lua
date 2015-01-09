@@ -8,7 +8,7 @@ if not pause then
     objects.player.body:applyForce(-player.Speed, 0)
   end
   if love.keyboard.isDown("up") then
-    objects.player.body:applyForce(0,-1000)
+    if objects.player.isTouchingGround then objects.player.body:applyLinearImpulse(0,-200) end
   end
   end
 end

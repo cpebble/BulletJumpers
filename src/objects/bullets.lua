@@ -43,7 +43,7 @@ function shoot(x,y,button)
   
   local body = love.physics.newBody(world,GunX,GunY,"dynamic") 
   local shape = love.physics.newCircleShape(3)
-  local fixture = love.physics.newFixture(body,shape,3)
+  local fixture = love.physics.newFixture(body,shape,5)
   body:applyLinearImpulse(bulletDx, bulletDy)
   body:setBullet(true)
   body:setGravityScale(0)

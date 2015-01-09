@@ -6,6 +6,7 @@ function initGround()
   objects.ground.shape = love.physics.newRectangleShape(love.graphics.getWidth(), 50)
   --attaching the shape to the body
   objects.ground.fixture = love.physics.newFixture(objects.ground.body,objects.ground.shape)
+  objects.ground.fixture:setUserData("Ground")
 end
 
 function drawGround()

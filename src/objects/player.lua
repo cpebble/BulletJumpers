@@ -6,6 +6,8 @@ function initPlayer()
   objects.player.shape = love.physics.newCircleShape(20)
   objects.player.fixture = love.physics.newFixture(objects.player.body,objects.player.shape,1)
   objects.player.fixture:setRestitution(0.1)
+  objects.player.fixture:setUserData("Player")
+  objects.player.isTouchingGround = false
 end
 
 function drawPlayer()

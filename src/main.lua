@@ -18,6 +18,7 @@ function love.load()
   love.physics.setMeter(32)
   -- Create a world with standard gravity
   world = love.physics.newWorld(0, 9.81*32, true)
+  world:setCallbacks(beginContact, endContact)
   initializeObjects()
   
   
@@ -38,6 +39,16 @@ function love.draw()
   drawObjects()
 end
 
+function beginContact(a, b, coll)
+if a:getUserData() == "Player" or b:getUserData() == "Player" then
+objects.player.isTouchingGround = true
+end
+end
+function endContact(a, b, coll)
+if a:getUserData() == "Player" or b:getUserData() == "Player" then
+objects.player.isTouchingGround = false
+end
+end
 function love.mousepressed(x, y, button)
   processClick(x,y,button)
 
