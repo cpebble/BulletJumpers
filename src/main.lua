@@ -11,7 +11,27 @@ function love.load()
   --what menu-screen should be displayed
   GUIscreen = 0
   
-  title = love.graphics.newImage("graphics/titlescreen.png")
+  menuButtons = 
+  --0
+  --campaign
+  {{{result=1,x=0,w=528,y=487,h=79},
+  --switch profile
+  {result=0,x=0,w=469,y=592,h=69},
+  --options
+  {result=0,x=0,w=399,y=685,h=78},
+  --quit game
+  {result=0,x=0,w=309,y=793,h=68}},
+  
+  --1
+  --levels
+  {{result=2,x=0,w=480,y=972,h=108},
+  --shop (temporarily exit to main menu)
+  {result=0,x=1440,w=480,y=972,h=108}}}
+  
+  title = {}
+  for i = 0, 1 do
+    title[i] = love.graphics.newImage("graphics/GUI"..i..".png")
+  end
 
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player

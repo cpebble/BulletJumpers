@@ -31,9 +31,17 @@ function shoot(x,y,button)
 end
 
 function handleGUI(x,y,button)
-  if GUIscreen == 0 then
-    if x < love.graphics.getWidth()/4 and y > (love.graphics.getHeight()/10)*9 then
-      pause = false
+  if button == "l" then
+    x = x*(1920/love.graphics.getWidth())
+    y = y*(1080/love.graphics.getHeight())
+    for _,v in ipairs(menuButtons[GUIscreen+1]) do
+      if x > v.x and x < v.x+v.w and y > v.y and y < v.y+v.h then
+        GUIscreen = v.result
+        if v.result == 2 then
+          GUIscreen = 1
+          pause = false
+        end
+      end
     end
   end
 end

@@ -35,5 +35,5 @@ function visualize()
 end
 
 function drawMenu()
-  love.graphics.draw(title,0,0)
+  love.graphics.draw(title[GUIscreen],0,0,0,love.graphics.getWidth()/1920,love.graphics.getHeight()/1080)
 end
