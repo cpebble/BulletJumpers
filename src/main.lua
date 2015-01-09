@@ -8,7 +8,7 @@ require "objects"
 --gets called when the game starts
 function love.load()
   pause = false
-  
+  normalFont = love.graphics.newFont(12)
   pauseFont = love.graphics.newFont(50)
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
