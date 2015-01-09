@@ -12,8 +12,8 @@ function shoot(x,y,button)
   if button == "l" then
     -- Whether to shoot from left or right side
 
-    local GunX = objects.player.shape:getX()
-    local GunY = objects.player.shape:getY()
+    local GunX = objects.player.body:getX()
+    local GunY = objects.player.body:getY()
     local mouseX = x
     local mouseY = y
     
@@ -22,7 +22,7 @@ function shoot(x,y,button)
     local bulletDx = bulletSpeed * math.cos(angle)
     local bulletDy = bulletSpeed * math.sin(angle)
     
-    table.insert(bullets,{x = GunY, y = GunY, dx=bulletDx, dy = bulletDy})
+    table.insert(bullets,{x = GunX, y = GunY, dx=bulletDx, dy = bulletDy})
   end
 end
 
