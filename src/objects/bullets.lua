@@ -26,13 +26,17 @@ function updateBullets(dt)
 end
 
 function shoot(x,y,button)
-  if x > player.x then
-  GunX = objects.player.body:getX() + objects.player.shape:getRadius()
+  if x > objects.player.body:getX() + objects.player.shape:getRadius() then
+  GunX = objects.player.body:getX() + objects.player.shape:getRadius() + 5
   else
-  GunX = objects.player.body:getX() - 2
+  GunX = objects.player.body:getX() - 5
   end
-  local GunY = objects.player.body:getY() + objects.player.shape:getRadius()/2
   
+  if y > objects.player.body:getY() + objects.player.shape:getRadius() then
+  GunY = objects.player.body:getY() + objects.player.shape:getRadius() + 5
+  else
+  GunY = objects.player.body:getY() - 5
+  end  
   local mouseX = x
   local mouseY = y
    
@@ -47,6 +51,7 @@ function shoot(x,y,button)
   body:applyLinearImpulse(bulletDx, bulletDy)
   body:setBullet(true)
   body:setGravityScale(0)
+  fixture:setUserData("Bullet")
   table.insert(bullets, {body = body, shape = shape, fixture = fixture })
   
 end

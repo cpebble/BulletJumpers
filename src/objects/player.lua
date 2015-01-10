@@ -8,6 +8,7 @@ function initPlayer()
   objects.player.fixture:setRestitution(0.1)
   objects.player.fixture:setUserData("Player")
   objects.player.isTouchingGround = false
+  objects.player.speed = 400
 end
 
 function drawPlayer()
