@@ -49,6 +49,8 @@ function love.load()
     title[i] = love.graphics.newImage("graphics/GUI"..i..".png")
   end
 
+  normalFont = love.graphics.newFont(12)
+  pauseFont = love.graphics.newFont(12)
   love.graphics.setBackgroundColor(54, 172, 248)
   --Stats on the player
   player = {x = 250, y = 250, height = 15, width = 15, health = 100, Speed = 400}
@@ -66,6 +68,7 @@ end
 function love.update(dt)
   processKey()
   updateObjects(dt)
+  
   -- checks if the game is paused
   if pause == false then
     gameLoop(dt)
