@@ -14,19 +14,9 @@ if not pause then
 end
 function love.keyreleased(key,unicode)
   if key == "escape" then
-  if pause then pause = false else
-  if not pause then pause = true end end
+    if not pause then pause = true else
+    fade = 0.0
+    GUIcommand = parentMenu[GUIscreen+1]
 end
 end
---[[
-if love.keyboard.isDown("escape") then escapeDown = true end
-if escapeDown then
-  if not love.keyboard.isDown("escape") then escapeUp = true end
 end
-  
-if escapeUp then
-  if pause then pause = false else
-  if not pause then pause = true end
-end
-end
-]]
