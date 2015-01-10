@@ -7,10 +7,17 @@ require "libraries.keyboard"
 --gets called when the game starts
 function love.load()
   --if the game is paused (in a menu)
+  --might be replaced with the variable 'GUIscreen' being in a certain state
   pause = true
+  
   --what menu-screen should be displayed
   GUIscreen = 0
+  --what menu-screen should be changed to at peak of fade
+  --negative numbers mean commands
+  GUIcommand = 0
   
+  --table containing the info for button hitboxes
+  --the coordinates are based on a 1080p display
   menuButtons = 
   --0
   --campaign
@@ -20,14 +27,22 @@ function love.load()
   --options
   {result=0,x=0,w=399,y=685,h=78},
   --quit game
-  {result=0,x=0,w=309,y=793,h=68}},
+  {result=-2,x=0,w=309,y=793,h=68}},
   
   --1
   --levels
-  {{result=2,x=0,w=480,y=972,h=108},
+  {{result=-1,x=0,w=480,y=972,h=108},
   --shop (temporarily exit to main menu)
   {result=0,x=1440,w=480,y=972,h=108}}}
   
+  --where a menu should go if escape is pressed
+  parentMenu = {0,0}
+  
+  --double used for menu-transition
+  --is inactive when -1
+  fade = -1.0
+  
+  --loads menuscreens
   title = {}
   for i = 0, 1 do
     title[i] = love.graphics.newImage("graphics/GUI"..i..".png")
@@ -77,10 +92,15 @@ end
 --the game loop
 function love.update(dt)
   --checks if game is paused and if it should update
+  --leads to libraries.loop
   if pause == false then
     gameLoop(dt)
+  elseif fade >= 0 then
+    animateFade(dt)
   end
 end
+
+
 
 --gets called when a key is pressed
 function love.keypressed(key)
