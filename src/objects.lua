@@ -5,17 +5,23 @@ require "objects.skyBox"
 require "objects.bullets"
 
 function initializeObjects()
+  -- One meter is 32px in physics engine
+  love.physics.setMeter(32)
+  -- Create a world with standard gravity
+  world = love.physics.newWorld(0, 9.81*32, true)
+  world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+
 objects = {}
 
   initBullets()
   
-  initGround()
+  --initGround()
   
   initSkyBox()
   
   initPlayer()
   
-  initBlocks()
+  --initBlocks()
 end
 
 function updateObjects(dt)
@@ -23,11 +29,11 @@ function updateObjects(dt)
 end
 
 function drawObjects()
-  drawGround()
+  --drawGround()
   
   drawPlayer()
   
-  drawBlocks()
+  --drawBlocks()
   
   drawBullets()
 end

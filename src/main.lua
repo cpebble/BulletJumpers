@@ -9,36 +9,25 @@ require "gui"
 --gets called when the game starts
 function love.load()
   --might be replaced with the variable 'GUIscreen' being in a certain state
-  pause = true
-    
-  initMenus()
+  
+  love.filesystem.load("gui/main.lua")()
   
   --double used for menu-transition
   --is inactive when -1
   fade = -1.0
   
-
-
   normalFont = love.graphics.newFont(12)
-  pauseFont = love.graphics.newFont(12)
-  love.graphics.setBackgroundColor(54, 172, 248)
-
-  -- One meter is 32px in physics engine
-  love.physics.setMeter(32)
-  -- Create a world with standard gravity
-  world = love.physics.newWorld(0, 9.81*32, true)
-  world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-  initializeObjects()
-  
-  
+  pauseFont = love.graphics.newFont(50)
+  love.graphics.setBackgroundColor(54, 172, 248)  
 end
 --the game loop
 function love.update(dt)
   processKey()
-  updateObjects(dt)
   
-  -- checks if the game is paused
-  if pause == false then
+  if inMenu then
+    drawMenu()
+  end
+  if not inMenu then
     gameLoop(dt)
   elseif fade >= 0 then
     animateFade(dt)
@@ -49,7 +38,7 @@ end
 --all drawing on screen must happen here
 function love.draw()
 -- Checks if paused 
-if not pause then
+if not inMenu then
   visualize() 
   drawObjects()
 else drawMenu() end
