@@ -1,6 +1,8 @@
+require "maps"
 function gameLoop(dt)
   world:update(dt)
-  updateObjects(dt)
+  --updateObjects(dt)
+  updateMap(dt)
 end
 
 function animateFade(dt)

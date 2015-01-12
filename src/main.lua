@@ -40,7 +40,7 @@ function love.draw()
 -- Checks if paused 
 if not inMenu then
   visualize() 
-  drawObjects()
+  drawMap()
 else drawMenu() end
 end
 
