@@ -9,7 +9,7 @@ require "gui"
 --gets called when the game starts
 function love.load()
   --might be replaced with the variable 'GUIscreen' being in a certain state
-  
+  debug = false
   love.filesystem.load("gui/main.lua")()
   
   --double used for menu-transition
@@ -45,6 +45,7 @@ else drawMenu() end
 end
 
 function beginContact(a, b, coll)
+print("Contact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
   objects.player.isTouchingGround = true
 end

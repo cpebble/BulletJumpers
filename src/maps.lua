@@ -1,6 +1,7 @@
 local sti = require "STI"
 require "objects"
 mapLoaded = false
+local spawnX, spawnY
 
 function loadMap(mapPath)
   -- Set Physics Meter
@@ -8,16 +9,23 @@ function loadMap(mapPath)
   -- Make sti load the world in question
   map = sti.new(mapPath)
   -- Prepare physics world
-  world = love.physics.newWorld(0, 20*32)
+  world = love.physics.newWorld(0, 60*32)
   -- prepare collision
   collision = map:initWorldCollision(world)
+  
+  -- Finds the spawn point
+  for _, object in map.layers["Entities"].objects do
+    if object.Name == "Player" then
+      spawnX = object.Position.X
+      spawnY = object.Position.Y
+    end
+  end
+  print(spawnX)
   -- Add the layer for the playa
   map:addCustomLayer("Sprite Layer", 3)
   
   local spriteLayer = map.layers["Sprite Layer"]
-  
-  local spawnX, spawnY = map:convertTileToScreen(32, 1)
-  
+    
   -- Add Player
   spriteLayer.sprite = {
   image = love.graphics.newImage("graphics/kim.png"),
@@ -31,7 +39,7 @@ function loadMap(mapPath)
   spriteLayer.sprite.shape = love.physics.newRectangleShape(30, 30)
   spriteLayer.sprite.fixture = love.physics.newFixture(spriteLayer.sprite.body, spriteLayer.sprite.shape, 1)
   
-  spriteLayer.sprite.body:setLinearDamping(10)
+  spriteLayer.sprite.body:setLinearDamping(5)
   
   function spriteLayer:draw()
   love.graphics.draw(self.sprite.image, self.sprite.x, self.sprite.y, self.sprite.r, 1, 1, 16, 16)
