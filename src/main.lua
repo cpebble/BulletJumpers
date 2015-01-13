@@ -1,4 +1,4 @@
---includes other lua files
+--includes other Lua files
 require "libraries.loop"
 require "libraries.graphics"
 require "libraries.click"
