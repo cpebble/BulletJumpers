@@ -14,12 +14,12 @@ function loadMap(mapPath)
   collision = map:initWorldCollision(world)
   
   -- Finds the spawn point
-  for _, object in map.layers["Entities"].objects do
-    if object.Name == "Player" then
-      spawnX = object.Position.X
-      spawnY = object.Position.Y
-    end
-  end
+--  for _, object in map.layers["Entities"].objects do
+--    if object.Name == "Player" then
+--      spawnX = object.Position.X
+--      spawnY = object.Position.Y
+--    end
+--  end
   print(spawnX)
   -- Add the layer for the playa
   map:addCustomLayer("Sprite Layer", 3)
