@@ -9,6 +9,6 @@ local menuButtons = {
   {x=0,w=309,y=793,h=68, result = function() love.event.push("quit") end}
 }
 local image = love.graphics.newImage("graphics/GUI0.png")
-
-loadMenu(menuButtons, image)
+local back = function() love.event.push("quit") end
+loadMenu(menuButtons, image, back)
 

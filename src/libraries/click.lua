@@ -6,6 +6,6 @@ function processClick(x,y,button)
   if not inMenu then
     handleObjects(x, y, button)
   else
-    handleMenu(x,y,button)
+    handleMenuClick(x,y,button)
   end
 end

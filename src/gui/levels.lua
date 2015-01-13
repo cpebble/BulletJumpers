@@ -8,4 +8,5 @@ local menuButtons = {
 }
 local image = love.graphics.newImage("graphics/Levels.png")
 
-loadMenu(menuButtons, image)
+local back = function() love.filesystem.load("gui/campaign")() end
+loadMenu(menuButtons, image, back)

@@ -6,5 +6,5 @@ local menubuttons = {
 }
 
 local image = love.graphics.newImage("graphics/GUI1.png")
-
-loadMenu(menubuttons, image)
+local back = function() love.filesystem.load("gui/main")() end
+loadMenu(menubuttons, image, back)

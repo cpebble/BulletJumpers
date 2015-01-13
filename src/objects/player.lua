@@ -20,3 +20,17 @@ end
 function drawPlayer()
   love.graphics.draw(spriteLayer.sprite.image, spriteLayer.sprite.x, spriteLayer.sprite.y,spriteLayer.sprite.r, 1, 1, 16, 16)
 end
+
+function updatePlayer(dt)
+  local sprite = map.layers["Sprite Layer"].sprite
+  local down = love.keyboard.isDown
+  
+  local x, y = 0, 0
+  if down("down") then y = y + 2002 end
+  if down("left") then x = x - 2000 end
+  if down("right") then x = x + 2000 end
+  sprite.body:applyForce(x, y)
+  
+  if down("up") and sprite.isTouchingGround then sprite.body:applyLinearImpulse(0, -500) end
+  sprite.x, sprite.y = sprite.body:getWorldCenter()
+end

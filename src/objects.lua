@@ -25,7 +25,8 @@ objects = {}
 end
 
 function updateObjects(dt)
-  updateBullets(dt)
+  --updateBullets(dt)
+  updatePlayer(dt)
 end
 
 function drawObjects()

@@ -1,9 +1,9 @@
 require "objects"
 local sti = require "STI"
 mapLoaded = false
-local spawnX, spawnY
 
 function loadMap(mapPath)
+  mapLoaded = true
   inMenu = false
   -- Set Physics Meter
   love.physics.setMeter(32)
@@ -36,17 +36,8 @@ end
 function updateMap(dt)
   world:update(dt)
   --Move the player
-  local sprite = map.layers["Sprite Layer"].sprite
-  local down = love.keyboard.isDown
+  updateObjects(dt)
   
-  local x, y = 0, 0
-  if down("down") then y = y + 2002 end
-  if down("left") then x = x - 2000 end
-  if down("right") then x = x + 2000 end
-  sprite.body:applyForce(x, y)
-  
-  if down("up") and sprite.isTouchingGround then sprite.body:applyLinearImpulse(0, -500) end
-  sprite.x, sprite.y = sprite.body:getWorldCenter()
   
   
   map:update(dt)
