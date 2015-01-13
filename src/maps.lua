@@ -4,6 +4,7 @@ mapLoaded = false
 local spawnX, spawnY
 
 function loadMap(mapPath)
+  inMenu = false
   -- Set Physics Meter
   love.physics.setMeter(32)
   -- Make sti load the world in question
@@ -12,17 +13,10 @@ function loadMap(mapPath)
   world = love.physics.newWorld(0, 60*32)
   -- prepare collision
   collision = map:initWorldCollision(world)
+  world:setCallbacks(beginContact, endContact, preSolve, postSolve)
   
-  -- Finds the spawn point
---  for _, object in map.layers["Entities"].objects do
---    if object.Name == "Player" then
---      spawnX = object.Position.X
---      spawnY = object.Position.Y
---    end
---  end
-  print(spawnX)
   -- Add the layer for the playa
-  map:addCustomLayer("Sprite Layer", 3)
+  map:convertToCustomLayer("Sprite Layer")
   
   local spriteLayer = map.layers["Sprite Layer"]
     
@@ -31,22 +25,27 @@ function loadMap(mapPath)
   image = love.graphics.newImage("graphics/kim.png"),
   x = 50,
   y = 50,
-  r = 0  
+  r = 0,
+  isTouchingGround  
   }
   
   
   spriteLayer.sprite.body = love.physics.newBody(world,spriteLayer.sprite.x/2,spriteLayer.sprite.y/2,"dynamic")
   spriteLayer.sprite.shape = love.physics.newRectangleShape(30, 30)
   spriteLayer.sprite.fixture = love.physics.newFixture(spriteLayer.sprite.body, spriteLayer.sprite.shape, 1)
-  
+  spriteLayer.sprite.fixture:setUserData("Player")
   spriteLayer.sprite.body:setLinearDamping(5)
-  
   function spriteLayer:draw()
   love.graphics.draw(self.sprite.image, self.sprite.x, self.sprite.y, self.sprite.r, 1, 1, 16, 16)
   end
   function spriteLayer:update(dt)
   
   end
+end
+function getTile(x, y)
+  local tileX, tileY = map:convertScreenToTile(x, y)
+  print(tileX .. " : ".. tileY)
+  --return map.layers["Ground"].data[tileX][tileY].gid
 end
 
 function updateMap(dt)
@@ -60,7 +59,8 @@ function updateMap(dt)
   if down("left") then x = x - 2000 end
   if down("right") then x = x + 2000 end
   sprite.body:applyForce(x, y)
-  if down("up") then sprite.body:applyLinearImpulse(0, -200) end
+  
+  if down("up") and sprite.isTouchingGround then sprite.body:applyLinearImpulse(0, -500) end
   sprite.x, sprite.y = sprite.body:getWorldCenter()
   
   

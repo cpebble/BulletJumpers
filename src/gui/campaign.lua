@@ -1,6 +1,6 @@
 local menubuttons = {
   --levels
-  {x=0,w=480,y=972,h=108, result = function() loadMap("maps/level2") inMenu = false end},
+  {x=0,w=480,y=972,h=108, result = function() love.filesystem.load("gui/levels.lua")() end},
   --shop (temporarily exit to main menu)
   {x=1440,w=480,y=972,h=108, result = function() end}
 }
