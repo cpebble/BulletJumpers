@@ -4,7 +4,7 @@ require "objects.blocks"
 require "objects.skyBox"
 require "objects.bullets"
 
-function initializeObjects()
+function initializeObjects(spriteLayer)
 --  -- One meter is 32px in physics engine
 --  love.physics.setMeter(32)
 --  -- Create a world with standard gravity
@@ -19,7 +19,7 @@ objects = {}
   
   --initSkyBox()
   
-  initPlayer()
+  initPlayer(spriteLayer)
   
   --initBlocks()
 end
@@ -35,5 +35,9 @@ function drawObjects()
   
   --drawBlocks()
   --
-  drawBullets()
+  --drawBullets()
+end
+
+function handleObjects()
+
 end
