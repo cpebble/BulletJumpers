@@ -47,7 +47,7 @@ end
 function beginContact(a, b, coll)
 print("Contact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
-  map.layers["Sprite Layer"].sprite.isTouchingGround = true
+  map.layers["Sprite Layer"].player.isTouchingGround = true
   print("PlayerContact")
 end
 end
@@ -55,7 +55,7 @@ end
 function endContact(a, b, coll)
 print("EndContact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
-  map.layers["Sprite Layer"].sprite.isTouchingGround = false
+  map.layers["Sprite Layer"].player.isTouchingGround = false
   print("PlayerEndContact")
 end
 end

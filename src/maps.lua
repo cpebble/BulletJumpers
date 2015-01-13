@@ -27,26 +27,17 @@ function loadMap(mapPath)
   
   end
 end
-function getTile(x, y)
-  local tileX, tileY = map:convertScreenToTile(x, y)
-  print(tileX .. " : ".. tileY)
-  --return map.layers["Ground"].data[tileX][tileY].gid
-end
 
 function updateMap(dt)
   world:update(dt)
-  --Move the player
   updateObjects(dt)
-  
-  
-  
   map:update(dt)
   
 end
 
 
 function drawMap()
-  local sprite = map.layers["Sprite Layer"].sprite
+  local sprite = map.layers["Sprite Layer"].player
   local ww = love.graphics.getHeight()
   local wh = love.graphics.getHeight()
   local tx = math.floor(-sprite.x + wh / 2 - 16)
