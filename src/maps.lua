@@ -3,6 +3,7 @@ local sti = require "STI"
 mapLoaded = false
 
 function loadMap(mapPath)
+  fullscreen = true
   mapLoaded = true
   inMenu = false
   -- Set Physics Meter

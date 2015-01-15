@@ -1,4 +1,5 @@
 require "objects"
+require "libraries.graphics"
 
 local image
 local menuButtons
