@@ -13,7 +13,7 @@ function initializeObjects(spriteLayer)
 
 objects = {}
 
-  --initBullets()
+  initBullets(spriteLayer)
   
   --initGround()
   
@@ -25,7 +25,7 @@ objects = {}
 end
 
 function updateObjects(dt)
-  --updateBullets(dt)
+  updateBullets(dt)
   updatePlayer(dt)
 end
 
@@ -36,9 +36,9 @@ function drawObjects()
   
   --drawBlocks()
   --
-  --drawBullets()
+  drawBullets()
 end
 
-function handleObjects()
-
+function handleObjects(x, y, button)
+  shoot(x, y, button)
 end

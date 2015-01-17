@@ -48,7 +48,7 @@ function drawMap()
   love.graphics.translate(tx,ty)
   map:setDrawRange(tx, ty, ww, wh)
   map:draw()
-  
+  drawObjects()
   if debug then
     love.graphics.setColor(255, 255, 0, 255)
     map:drawWorldCollision(collision)

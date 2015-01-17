@@ -1,7 +1,9 @@
-function initBullets()
+local spriteLayer
+function initBullets(Layer)
   --array to hold the bullets
   bullets = {}
-  bulletSpeed = 250
+  bulletSpeed = 50
+  spriteLayer = Layer
 end
 
 function drawBullets()
@@ -9,12 +11,6 @@ function drawBullets()
   for i,v in ipairs(bullets) do
   love.graphics.circle("fill",v.body:getX(), v.body:getY(), v.shape:getRadius())
   end
-  
-    --[[
-  for i,v in ipairs(bullets) do
-   love.graphics.circle("fill",v.x,v.y,3)
-  end
-  ]]
 end
 
 function updateBullets(dt)
@@ -26,16 +22,17 @@ function updateBullets(dt)
 end
 
 function shoot(x,y,button)
-  if x > objects.player.body:getX() + objects.player.shape:getRadius() then
-  GunX = objects.player.body:getX() + objects.player.shape:getRadius() + 5
+  --GetRadius is being replaced here since no longer a circle player. MUST BE UPDATED IF CHANGING PLAYERS SIZE
+  if x > spriteLayer.player.body:getX() + 20 then
+  GunX = spriteLayer.player.body:getX() + 20 + 5
   else
-  GunX = objects.player.body:getX() - 5
+  GunX = spriteLayer.player.body:getX() - 5
   end
   
-  if y > objects.player.body:getY() + objects.player.shape:getRadius() then
-  GunY = objects.player.body:getY() + objects.player.shape:getRadius() + 5
+  if y > spriteLayer.player.body:getY() + 29 then
+  GunY = spriteLayer.player.body:getY() + 29 + 5
   else
-  GunY = objects.player.body:getY() - 5
+  GunY = spriteLayer.player.body:getY() - 5
   end  
   local mouseX = x
   local mouseY = y
@@ -55,29 +52,3 @@ function shoot(x,y,button)
   table.insert(bullets, {body = body, shape = shape, fixture = fixture })
   
 end
-
---[[
-  objects.player.body = love.physics.newBody(world,650/2,650/2,"dynamic")
-  objects.player.shape = love.physics.newCircleShape(20)
-  objects.player.fixture = love.physics.newFixture(objects.player.body,objects.player.shape,1)
-]]
-
---[[
-function shoot(x,y,button)
-  -- Checks if you want to shoot
-  if button == "l" then
-
-    local GunX = objects.player.body:getX()
-    local GunY = objects.player.body:getY()
-    local mouseX = x
-    local mouseY = y
-    
-    local angle = math.atan2((mouseY - GunY),(mouseX - GunX))
-    
-    local bulletDx = bulletSpeed * math.cos(angle)
-    local bulletDy = bulletSpeed * math.sin(angle)
-    
-    table.insert(bullets,{x = GunX, y = GunY, dx=bulletDx, dy = bulletDy})
-  end
-end
-]]

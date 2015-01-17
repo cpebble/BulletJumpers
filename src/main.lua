@@ -55,8 +55,8 @@ end
 function endContact(a, b, coll)
 print("EndContact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
-  map.layers["Sprite Layer"].player.isTouchingGround = false
-  print("PlayerEndContact")
+  --map.layers["Sprite Layer"].player.isTouchingGround = false
+  --print("PlayerEndContact")
 end
 end
 function postSolve(a, b, coll, norm, tang)
