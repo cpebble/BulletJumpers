@@ -15,6 +15,7 @@ function initPlayer(Layer)
   spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
   spriteLayer.player.fixture:setUserData("Player")
   spriteLayer.player.body:setLinearDamping(5)
+  spriteLayer.player.body:setFixedRotation(true)
 end
 
 function drawPlayer()

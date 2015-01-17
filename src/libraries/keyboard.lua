@@ -5,7 +5,7 @@ end
 function love.keyreleased(key,unicode)
   if not inMenu then
   fade = 0.0
-  love.filesystem.load("gui/levels.lua")()
+  mapHandleKeyboard(key, unicode)
   else
   handleMenuKey(key, unicode)
   end

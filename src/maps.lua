@@ -61,3 +61,6 @@ end
 function rezizeMap()
   map:resize(w, h)
 end
+function mapHandleKeyboard(key, unicode)
+  if key== "escape" then love.filesystem.load("gui/levels.lua")() end
+end
