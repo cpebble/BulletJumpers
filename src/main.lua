@@ -5,6 +5,7 @@ require "libraries.click"
 require "libraries.keyboard"
 require "objects"
 require "gui"
+require "hud"
 
 --gets called when the game starts
 function love.load()
@@ -41,6 +42,7 @@ function love.draw()
 if not inMenu then
   visualize() 
   drawMap()
+  drawHUD()
 else drawMenu() end
 end
 
