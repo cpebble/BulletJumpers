@@ -3,13 +3,15 @@ require "objects.player"
 require "objects.blocks"
 require "objects.skyBox"
 require "objects.bullets"
-
+require "objects.goal"
+local playerEntity
+local goalEntity
 function initializeObjects(spriteLayer)
---  -- One meter is 32px in physics engine
---  love.physics.setMeter(32)
---  -- Create a world with standard gravity
---  world = love.physics.newWorld(0, 9.81*32, true)
---  world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+-- Inits the various Entities
+for i, v in ipairs(map.layers["Entities"].objects) do
+  if v.name == "Player" then playerEntity = v end
+  if v.name == "Goal" then goalEntity = v end
+end
 
 objects = {}
 
@@ -19,7 +21,9 @@ objects = {}
   
   --initSkyBox()
   
-  initPlayer(spriteLayer)
+  initGoal(spriteLayer, goalEntity)
+  
+  initPlayer(spriteLayer, playerEntity)
   
   --initBlocks()
 end

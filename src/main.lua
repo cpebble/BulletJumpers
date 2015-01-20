@@ -45,10 +45,11 @@ else drawMenu() end
 end
 
 function beginContact(a, b, coll)
-print("Contact")
+print("Contact between") print(a:getUserData()) print(b:getUserData())
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
   map.layers["Sprite Layer"].player.isTouchingGround = true
   print("PlayerContact")
+  if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
 end
 end
 
@@ -57,6 +58,7 @@ print("EndContact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
   map.layers["Sprite Layer"].player.isTouchingGround = false
   print("PlayerEndContact")
+  --if spriteLayer.player
 end
 end
 function postSolve(a, b, coll, norm, tang)
