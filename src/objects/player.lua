@@ -1,16 +1,21 @@
 local spriteLayer
 function initPlayer(Layer)
   spriteLayer = Layer
+  
   -- Add Player
   spriteLayer.player = {
   image = love.graphics.newImage("graphics/kim.png"),
-  x = 20,
-  y = 29,
+  w = 20,
+  h = 29,
   r = 0,
   isTouchingGround  
   }
-  
-  spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x/2,spriteLayer.player.y/2,"dynamic")
+    for i, v in ipairs(map.layers["Entities"].objects) do
+    if v.name == "Player" then
+      spriteLayer.player.x, spriteLayer.player.y = v.x, v.y
+    end
+  end
+  spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
   spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
   spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
   spriteLayer.player.fixture:setUserData("Player")

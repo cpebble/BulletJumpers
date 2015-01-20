@@ -18,9 +18,8 @@ function loadMap(mapPath)
   -- Add the layer for the playa
   map:convertToCustomLayer("Sprite Layer")
   local spriteLayer = map.layers["Sprite Layer"]
-  
+  -- Run the initialization process for the various objects
   initializeObjects(spriteLayer)
-
   function spriteLayer:draw()
   drawObjects()
   end
