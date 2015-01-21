@@ -36,19 +36,32 @@ function updatePlayer(dt)
   local xv, y = player.xv, 0
   local arfg = player.x
   --if down("down") then y = y + 2002 end
-  if down("left") then xv = xv - 20*player.momentum end
-  if down("right") then xv = xv + 20*player.momentum end
+  if down("left") then xv = xv-5-player.momentum/10 end -- -+
+  if down("right") then xv = xv+5+player.momentum/10 end
   player.body:applyForce(xv, 0)
-  if arfg-player.x and player.momentum > 10 then
+  if arfg-player.x == 0 and not (down("right") or down("left")) then
     xv = 0
   end
-  map.layers["Sprite Layer"].player.xv = xv
   
   if down("up") and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
   player.x, player.y = player.body:getWorldCenter()
   
-  if player.momentum > xv then
-    map.layers["Sprite Layer"].player.momentum = player.momentum - 5
+  --controls momentum drop when not moving
+  if player.momentum > math.abs(xv) then
+    map.layers["Sprite Layer"].player.momentum = player.momentum - 2
   end
-  map.layers["Sprite Layer"].player.momentum = player.momentum + 2
+  --controls momentum increase when at full speed
+  if math.abs(xv) > player.momentum then
+    player.momentum = player.momentum+3
+    --xv = player.momentum*(xv/math.abs(xv)) --if uncommented map disappears of some reason
+  end
+  --controls that momentum doesn't exceed the max
+  if player.momentum > MaxMomentum then
+    player.momentum = MaxMomentum
+    xv = MaxMomentum
+  end
+  --applies the momentum value to the global object/updates the momentum stat
+  map.layers["Sprite Layer"].player.momentum = player.momentum
+  --same for x-velocity
+  map.layers["Sprite Layer"].player.xv = xv --doesn't seem to do much
 end
