@@ -136,13 +136,13 @@ return {
     {
       type = "objectgroup",
       name = "Entities",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {
         {
           name = "Player",
-          type = "",
+          type = "Object",
           shape = "rectangle",
           x = 496,
           y = 379,
@@ -154,7 +154,7 @@ return {
         },
         {
           name = "Goal",
-          type = "",
+          type = "Object",
           shape = "rectangle",
           x = 2.33333,
           y = 74.3333,

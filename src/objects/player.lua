@@ -32,6 +32,9 @@ function updatePlayer(dt)
   local player = map.layers["Sprite Layer"].player
   local down = love.keyboard.isDown
   
+  if player.health  < 1 then love.filesystem.load("gui/lose.lua")() end
+  
+  
   local xv, y = player.xv, 0
   local ts = 75 --timescale
   local arfg = player.x
