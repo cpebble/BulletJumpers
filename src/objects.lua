@@ -4,7 +4,6 @@ require "objects.blocks"
 require "objects.skyBox"
 require "objects.bullets"
 require "objects.goal"
-
 local playerEntity
 local goalEntity
 function initializeObjects(spriteLayer)

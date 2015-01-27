@@ -10,8 +10,7 @@ function initPlayer(Layer, entity)
   r = 0,
   isTouchingGround,
   x = entity.x,
-  y = entity.y,
-  health = 3
+  y = entity.y
   }
   spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
   spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
@@ -37,5 +36,4 @@ function updatePlayer(dt)
   
   if down("up") and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
   player.x, player.y = player.body:getWorldCenter()
-  if player.health > 3 then player.health = 3 end
 end
