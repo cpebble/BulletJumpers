@@ -11,7 +11,7 @@ function loadMap(mapPath)
   -- Make sti load the world in question
   map = sti.new(mapPath)
   -- Prepare physics world
-  world = love.physics.newWorld(0, 60*32)
+  world = love.physics.newWorld(0, 30*32)
   -- prepare collision
   collision = map:initWorldCollision(world)
   world:setCallbacks(beginContact, endContact, preSolve, postSolve)
