@@ -5,4 +5,4 @@ local menubuttons = {
 local image = love.graphics.newImage("graphics/lose.png")
 
 local back = function() love.filesystem.load("gui/levels.lua")() end
-loadMenu(menubuttons, image, back)
+loadMenu(menubuttons, image, back)  
