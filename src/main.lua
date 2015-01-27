@@ -17,7 +17,7 @@ function love.load()
   --is inactive when -1
   fade = -1.0
   
-  MaxMomentum = 900
+  maxMomentum = 500
   
   normalFont = love.graphics.newFont(12)
   pauseFont = love.graphics.newFont(50)

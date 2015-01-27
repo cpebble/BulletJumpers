@@ -9,7 +9,7 @@ function initPlayer(Layer)
   h = 29,
   r = 0,
   isTouchingGround,
-  xv = 1,
+  xv = 0,
   momentum = 1
   }
     for i, v in ipairs(map.layers["Entities"].objects) do
@@ -34,11 +34,27 @@ function updatePlayer(dt)
   local down = love.keyboard.isDown
   
   local xv, y = player.xv, 0
+  local ts = 75 --timescale
   local arfg = player.x
   --if down("down") then y = y + 2002 end
-  if down("left") then xv = xv-5-player.momentum/10 end -- -+
-  if down("right") then xv = xv+5+player.momentum/10 end
-  player.body:applyForce(xv, 0)
+  if down("left") then
+    if xv <= 0 then
+      xv = xv-player.momentum/10*dt*ts
+    else
+      --it's slower to brake
+      xv = xv-player.momentum/30*dt*ts
+    end
+  end
+  if down("right") then 
+    if xv >= 0 then
+      xv = xv+player.momentum/10*dt*ts
+    else
+      xv = xv+player.momentum/30*dt*ts
+    end
+  end
+  --basic movement
+  player.body:applyForce(xv*dt*ts, 0)
+  player.body:setY(player.body:getY()-1)
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   
@@ -48,7 +64,7 @@ function updatePlayer(dt)
   
   --controls momentum increase when at full speed
   if math.abs(xv) > player.momentum then
-    player.momentum = player.momentum+3
+    player.momentum = player.momentum+3*math.cos((player.momentum/maxMomentum)*math.pi/2)*dt*ts
     local negation = 0
     if xv >= 0 then
       negation = 1
@@ -59,13 +75,9 @@ function updatePlayer(dt)
   end
   --controls momentum drop when not moving
   if player.momentum > math.abs(xv) then
-    map.layers["Sprite Layer"].player.momentum = player.momentum - 2
+    map.layers["Sprite Layer"].player.momentum = player.momentum - 2*dt*ts
   end
-  --controls that momentum doesn't exceed the max
-  if player.momentum > MaxMomentum then
-    player.momentum = MaxMomentum
-    xv = MaxMomentum
-  end
+  
   --applies the momentum value to the global object/updates the momentum stat
   map.layers["Sprite Layer"].player.momentum = player.momentum
   --same for x-velocity
