@@ -47,11 +47,11 @@ else drawMenu() end
 end
 
 function beginContact(a, b, coll)
-print("Contact between") print(a:getUserData()) print(b:getUserData())
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
   map.layers["Sprite Layer"].player.isTouchingGround = true
   print("PlayerContact")
   if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
+  if a:getUserData() == "Spike" or b:getUserData() == "Spike" then assert(false, "SPIKES!!!") end
 end
 end
 

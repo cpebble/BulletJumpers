@@ -32,25 +32,7 @@ return {
             visible = true,
             opacity = 1,
             properties = {},
-            objects = {
-              {
-                name = "",
-                type = "",
-                shape = "polygon",
-                x = 0.181818,
-                y = 0.363636,
-                width = 0,
-                height = 0,
-                rotation = 0,
-                visible = true,
-                polygon = {
-                  { x = 0, y = 0 },
-                  { x = 30.9091, y = 30.9091 },
-                  { x = -0.545455, y = 31.4545 }
-                },
-                properties = {}
-              }
-            }
+            objects = {}
           }
         }
       }

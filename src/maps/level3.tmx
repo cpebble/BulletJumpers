@@ -3,11 +3,7 @@
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
   <image source="../graphics/tiles.png" width="500" height="500"/>
   <tile id="34">
-   <objectgroup draworder="index">
-    <object x="0.181818" y="0.363636">
-     <polygon points="0,0 30.9091,30.9091 -0.545455,31.4545"/>
-    </object>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
  </tileset>
  <layer name="Background" width="40" height="25">
@@ -103,7 +99,7 @@
  <objectgroup name="Sprite Layer"/>
  <objectgroup name="Entities">
   <object name="Player" x="96" y="476"/>
-  <object name="Goal" x="1252" y="385" width="24" height="31"/>
+  <object name="Goal" x="1228" y="383" width="24" height="31"/>
  </objectgroup>
  <layer name="Foreground" width="40" height="25">
   <data encoding="csv">

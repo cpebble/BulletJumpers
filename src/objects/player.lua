@@ -1,6 +1,7 @@
 local spriteLayer
 function initPlayer(Layer, entity)
-  spriteLayer = Layer
+  print("initPlayer")
+  spriteLayer = map.layers["Sprite Layer"]
   
   -- Add Player
   spriteLayer.player = {

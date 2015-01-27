@@ -1,6 +1,7 @@
 local goalEntity
 local goal
-function initGoal(Layer, Entity)
+function initGoal(Entity)
+  Layer = map.layers["Sprite Layer"]
   goalEntity = Entity
   Layer.goal = {
     x = goalEntity.x,

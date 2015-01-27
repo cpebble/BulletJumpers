@@ -155,13 +155,13 @@ return {
     {
       type = "objectgroup",
       name = "Entities",
-      visible = false,
+      visible = true,
       opacity = 1,
       properties = {},
       objects = {
         {
           name = "Player",
-          type = "",
+          type = "Object",
           shape = "rectangle",
           x = 76,
           y = 217,
@@ -189,7 +189,7 @@ return {
         },
         {
           name = "Goal",
-          type = "",
+          type = "Object",
           shape = "rectangle",
           x = 1153,
           y = 140,
@@ -198,6 +198,36 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          name = "Spike",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 288,
+          y = 256,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          gid = 59,
+          visible = true,
+          properties = {
+            ["damage"] = "3"
+          }
+        },
+        {
+          name = "Spike",
+          type = "Enemy",
+          shape = "rectangle",
+          x = 320,
+          y = 256,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          gid = 59,
+          visible = true,
+          properties = {
+            ["damage"] = "3"
+          }
         }
       }
     },
