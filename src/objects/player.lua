@@ -10,6 +10,8 @@ function initPlayer(Layer, entity)
   h = 29,
   r = 0,
   isTouchingGround,
+  xv = 0,
+  momentum = 1,
   x = entity.x,
   y = entity.y,
   health = 3
@@ -18,8 +20,8 @@ function initPlayer(Layer, entity)
   spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
   spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
   spriteLayer.player.fixture:setUserData("Player")
-  spriteLayer.player.body:setLinearDamping(5)
-  spriteLayer.player.body:setFixedRotation(false)
+  --spriteLayer.player.body:setLinearDamping(5)
+  spriteLayer.player.body:setFixedRotation(true)
 end
 
 function drawPlayer()
@@ -30,13 +32,57 @@ function updatePlayer(dt)
   local player = map.layers["Sprite Layer"].player
   local down = love.keyboard.isDown
   
-  local x, y = 0, 0
-  if down("down") then y = y + 2002 end
-  if down("left") then x = x - 2000 end
-  if down("right") then x = x + 2000 end
-  player.body:applyForce(x, y)
+  local xv, y = player.xv, 0
+  local ts = 75 --timescale
+  local arfg = player.x
+  --if down("down") then y = y + 2002 end
+  if down("left") then
+    if xv <= 0 then
+      xv = xv-player.momentum/10*dt*ts
+    else
+      --it's slower to brake
+      xv = xv-player.momentum/30*dt*ts
+    end
+  end
+  if down("right") then 
+    if xv >= 0 then
+      xv = xv+player.momentum/10*dt*ts
+    else
+      xv = xv+player.momentum/30*dt*ts
+    end
+  end
+  --basic movement
+  player.body:applyForce(xv*dt*ts, 0)
+  player.body:setY(player.body:getY()-1)
+  --synchronizes sprite with actual placement
+  player.x, player.y = player.body:getWorldCenter()
   
-  if down("up") and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
+  if arfg-player.x == 0 and not (down("right") or down("left")) and math.abs(xv) > 10 then
+    xv = 0
+  end
+  
+  --controls momentum increase when at full speed
+  if math.abs(xv) > player.momentum then
+    player.momentum = player.momentum+3*math.cos((player.momentum/maxMomentum)*math.pi/2)*dt*ts
+    local negation = 0
+    if xv >= 0 then
+      negation = 1
+    else
+      negation = -1
+    end
+    xv = player.momentum*negation
+  end
+  --controls momentum drop when not moving
+  if player.momentum > math.abs(xv) then
+    map.layers["Sprite Layer"].player.momentum = player.momentum - 2*dt*ts
+  end
+  
+  --applies the momentum value to the global object/updates the momentum stat
+  map.layers["Sprite Layer"].player.momentum = player.momentum
+  --same for x-velocity
+  map.layers["Sprite Layer"].player.xv = xv
+  
+
   player.x, player.y = player.body:getWorldCenter()
   if player.health > 3 then player.health = 3 end
 end

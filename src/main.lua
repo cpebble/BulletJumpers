@@ -17,14 +17,14 @@ function love.load()
   --is inactive when -1
   fade = -1.0
   
+  maxMomentum = 700
+  
   normalFont = love.graphics.newFont(12)
   pauseFont = love.graphics.newFont(50)
   love.graphics.setBackgroundColor(54, 172, 248)  
 end
 --the game loop
 function love.update(dt)
-  processKey()
-  
   if inMenu then
     drawMenu()
   end

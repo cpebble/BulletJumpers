@@ -11,4 +11,13 @@ function drawHud()
   for i = 1, map.layers["Sprite Layer"].player.health do
     love.graphics.draw(healthImg[i],0,0,0,love.graphics.getWidth()/1920,love.graphics.getHeight()/1080)
   end
+  
+  local player = map.layers["Sprite Layer"].player
+  
+  love.graphics.setColor({0,0,0})
+  love.graphics.rectangle("fill",1820*(love.graphics.getWidth()/1920),10,50,100)
+  love.graphics.setColor({255,150,0})
+  love.graphics.rectangle("fill",1820*(love.graphics.getWidth()/1920),110-player.momentum/maxMomentum*100,50,player.momentum/maxMomentum*100)
+  love.graphics.setColor({0,200,0})
+  love.graphics.rectangle("fill",1820*(love.graphics.getWidth()/1920),110-math.abs(player.xv)/maxMomentum*100,50,math.abs(player.xv)/maxMomentum*100)
 end
