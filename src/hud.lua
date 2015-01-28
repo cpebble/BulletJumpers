@@ -5,7 +5,7 @@ local shieldImg
 for i = 1, 3 do
   healthImg[i] = love.graphics.newImage("graphics/HUD/Health"..i..".png")
 end
-shieldImg = love.graphics.newImage("graphics/HUD/shield.png")
+shieldImg = love.graphics.newImage("graphics/HUD/Shield.png")
 
 function drawHud()
   love.graphics.draw(mainHUD, 0, 0, 0, love.graphics.getWidth()/1920, love.graphics.getHeight()/1080)
