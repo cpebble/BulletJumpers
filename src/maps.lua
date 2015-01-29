@@ -11,7 +11,7 @@ function loadMap(mapPath)
   -- Make sti load the world in question
   map = sti.new(mapPath)
   -- Prepare physics world
-  world = love.physics.newWorld(0, 30*32)
+  world = love.physics.newWorld(0, 15*32)
   -- prepare collision
   collision = map:initWorldCollision(world)
   world:setCallbacks(beginContact, endContact, preSolve, postSolve)
@@ -53,7 +53,8 @@ function drawMap()
     map:drawWorldCollision(collision)
   
     love.graphics.setColor(255, 0, 0, 255)
-    love.graphics.polygon("line", sprite.body:getWorldPoints(sprite.shape:getPoints()))
+    --love.graphics.polygon("line", sprite.body:getWorldPoints(sprite.shape:getPoints()))
+    love.graphics.circle("line",sprite.body:getX(),sprite.body:getY(),5)
   end
   love.graphics.pop()
 end

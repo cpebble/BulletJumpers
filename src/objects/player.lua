@@ -14,7 +14,9 @@ function initPlayer(Layer, entity)
   momentum = 1,
   x = entity.x,
   y = entity.y,
-  health = 3
+  health = 3,
+  jumpTick = 0,
+  midJump
   }
   spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
   --spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
@@ -35,12 +37,17 @@ function updatePlayer(dt)
   
   if player.health  < 1 then love.filesystem.load("gui/lose.lua")() end
   
-  
   local xv, y = player.xv, 0
   local ts = 75 --timescale
   local arfg = player.x
+  local gfra = player.y
   --if down("down") then y = y + 2002 end
   --process player input
+  if down("up") and player.midJump then 
+    y = (-2000+math.pow(player.jumpTick,2))*dt*ts
+    if y >= 0 then y = 0 end
+    player.jumpTick = player.jumpTick+dt*100
+  end
   if down("left") then xv = xv-player.momentum/30*dt*ts end
   if down("right") then xv = xv+player.momentum/30*dt*ts end
   --allows for proper movement with minimal momentum
@@ -49,13 +56,17 @@ function updatePlayer(dt)
     if down("right") then xv = xv+3 end
   end
   --basic movement
-  player.body:applyForce(xv*dt*ts, 0)
+  player.body:applyForce(xv*dt*ts, y)
   --player.body:setY(player.body:getY()-1)
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   
   if arfg-player.x == 0 and not (down("right") or down("left")) and math.abs(xv) > 50 then
     xv = 0
+  end
+  --attempt at making the collision more reliable
+  if gfra-player.y == 0 then
+    player.isTouchingGround = true
   end
   
   --controls momentum increase when at full speed
@@ -74,11 +85,8 @@ function updatePlayer(dt)
     map.layers["Sprite Layer"].player.momentum = player.momentum - 3*dt*ts
   end
   
-  --applies the momentum value to the global object/updates the momentum stat
-  map.layers["Sprite Layer"].player.momentum = player.momentum
-  --same for x-velocity
+  --applies value to the global object
   map.layers["Sprite Layer"].player.xv = xv
-  
 
   player.x, player.y = player.body:getWorldCenter()
   if player.health > 3 then player.health = 3 end
