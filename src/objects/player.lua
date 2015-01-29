@@ -21,7 +21,7 @@ function initPlayer(Layer, entity)
   spriteLayer.player.shape = love.physics.newCircleShape(15,15,15) --breaks debug-mode
   spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
   spriteLayer.player.fixture:setUserData("Player")
-  --spriteLayer.player.body:setLinearDamping(5)
+  spriteLayer.player.body:setLinearDamping(2)
   spriteLayer.player.body:setFixedRotation(false)
 end
 
@@ -37,23 +37,16 @@ function updatePlayer(dt)
   
   
   local xv, y = player.xv, 0
-  local ts = 60 --timescale
+  local ts = 75 --timescale
   local arfg = player.x
   --if down("down") then y = y + 2002 end
-  if down("left") then
-    if xv <= 0 then
-      xv = xv-player.momentum/10*dt*ts
-    else
-      --it's slower to brake
-      xv = xv-player.momentum/30*dt*ts
-    end
-  end
-  if down("right") then 
-    if xv >= 0 then
-      xv = xv+player.momentum/10*dt*ts
-    else
-      xv = xv+player.momentum/30*dt*ts
-    end
+  --process player input
+  if down("left") then xv = xv-player.momentum/30*dt*ts end
+  if down("right") then xv = xv+player.momentum/30*dt*ts end
+  --allows for proper movement with minimal momentum
+  if math.abs(player.momentum) < 50 then
+    if down("left") then xv = xv-3 end
+    if down("right") then xv = xv+3 end
   end
   --basic movement
   player.body:applyForce(xv*dt*ts, 0)
@@ -61,13 +54,13 @@ function updatePlayer(dt)
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   
-  if arfg-player.x == 0 and not (down("right") or down("left")) and math.abs(xv) > 10 then
+  if arfg-player.x == 0 and not (down("right") or down("left")) and math.abs(xv) > 50 then
     xv = 0
   end
   
   --controls momentum increase when at full speed
   if math.abs(xv) > player.momentum then
-    player.momentum = player.momentum+3*math.cos((player.momentum/maxMomentum)*math.pi/2)*dt*ts
+    player.momentum = player.momentum+2*math.cos((player.momentum/maxMomentum)*math.pi/2)*dt*ts
     local negation = 0
     if xv >= 0 then
       negation = 1
@@ -78,7 +71,7 @@ function updatePlayer(dt)
   end
   --controls momentum drop when not moving
   if player.momentum > math.abs(xv) then
-    map.layers["Sprite Layer"].player.momentum = player.momentum - 2*dt*ts
+    map.layers["Sprite Layer"].player.momentum = player.momentum - 3*dt*ts
   end
   
   --applies the momentum value to the global object/updates the momentum stat

@@ -1,7 +1,8 @@
 require "gui"
 function love.keypressed(key,unicode)
   local player = map.layers["Sprite Layer"].player
-  if key == "up" and player.isTouchingGround then player.body:applyLinearImpulse(0, -450) end
+  if key == "up" --and player.isTouchingGround 
+  then player.body:applyLinearImpulse(0, -700) end
 end
 function love.keyreleased(key,unicode)
   if not inMenu then
