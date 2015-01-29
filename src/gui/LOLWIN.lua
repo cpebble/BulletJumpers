@@ -4,6 +4,6 @@ local menubuttons = {
   
 }
 
-local image = love.graphics.newImage("graphics/LOLWIN.png")
+local image = love.graphics.newImage("graphics/Daniel is the gay.png")
 local back = function() end
 loadMenu(menubuttons, image, back)

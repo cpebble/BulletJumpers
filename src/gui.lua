@@ -13,7 +13,12 @@ function loadMenu(menubuttons, menuImage, backFunc)
 end
 
 function drawMenu()
-  love.graphics.draw(image ,0 ,0 , 0,love.graphics.getWidth()/1920, love.graphics.getHeight()/1080)
+  love.graphics.draw(image ,0 ,0 ,0 ,love.graphics.getWidth()/1920, love.graphics.getHeight()/1080)
+  --[[if fade >= 0 then
+    love.graphics.setColor({0,0,0,(-math.abs(math.cos(fade*math.pi))+1)*255})
+    love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+    love.graphics.setColor({255,255,255})
+  end--]]
 end
 
 function handleMenuClick(x, y, button)
@@ -24,8 +29,7 @@ print("handleGui")
   --checks if click has hit any of the buttons
   for _, v in ipairs(menuButtons) do
     if x > v.x and x < v.x + v.w and y > v.y and y < v.y+v.h then
-      fade = 0.0
-       v.result()
+      v.result()
       
     end
   end

@@ -17,11 +17,12 @@ function initPlayer(Layer, entity)
   health = 3
   }
   spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
-  spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
+  --spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
+  spriteLayer.player.shape = love.physics.newCircleShape(15,15,15) --breaks debug-mode
   spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
   spriteLayer.player.fixture:setUserData("Player")
   --spriteLayer.player.body:setLinearDamping(5)
-  spriteLayer.player.body:setFixedRotation(true)
+  spriteLayer.player.body:setFixedRotation(false)
 end
 
 function drawPlayer()
@@ -36,7 +37,7 @@ function updatePlayer(dt)
   
   
   local xv, y = player.xv, 0
-  local ts = 75 --timescale
+  local ts = 60 --timescale
   local arfg = player.x
   --if down("down") then y = y + 2002 end
   if down("left") then
@@ -56,7 +57,7 @@ function updatePlayer(dt)
   end
   --basic movement
   player.body:applyForce(xv*dt*ts, 0)
-  player.body:setY(player.body:getY()-1)
+  --player.body:setY(player.body:getY()-1)
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   

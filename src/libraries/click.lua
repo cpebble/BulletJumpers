@@ -7,5 +7,6 @@ function processClick(x,y,button)
     handleObjects(x, y, button)
   else
     handleMenuClick(x,y,button)
+    fade = 0.0
   end
 end
