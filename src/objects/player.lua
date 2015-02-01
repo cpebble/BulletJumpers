@@ -44,7 +44,7 @@ function updatePlayer(dt)
   --if down("down") then y = y + 2002 end
   --process player input
   if down("up") and player.midJump then 
-    y = (-2000+math.pow(player.jumpTick,2))*dt*ts
+    y = (-1500+math.pow(player.jumpTick,1.7))*dt*ts
     if y >= 0 then y = 0 end
     player.jumpTick = player.jumpTick+dt*100
   end
@@ -52,19 +52,25 @@ function updatePlayer(dt)
   if down("right") then xv = xv+player.momentum/30*dt*ts end
   --allows for proper movement with minimal momentum
   if math.abs(player.momentum) < 50 then
-    if down("left") then xv = xv-3 end
-    if down("right") then xv = xv+3 end
+    if down("left") then xv = xv-3*dt*ts end
+    if down("right") then xv = xv+3*dt*ts end
   end
   --basic movement
   player.body:applyForce(xv*dt*ts, y)
-  --player.body:setY(player.body:getY()-1)
-  --synchronizes sprite with actual placement
-  player.x, player.y = player.body:getWorldCenter()
   
-  if arfg-player.x == 0 and not (down("right") or down("left")) and math.abs(xv) > 50 then
-    xv = 0
+  --if arfg-player.x == 0 and not (down("left") or down("right")) and math.abs(xv) > 100 then
+  --  xv = 0
+  --end
+  
+  --stand still if sufficiently low speed
+  if math.abs(xv) < 30 then
+    if xv < 1 then
+      xv = xv+ 1*dt*ts
+    elseif xv > 1 then
+      xv = xv - 1*dt*ts
+    end
   end
-  --attempt at making the collision more reliable
+  --maybe helps make collision more reliable
   if gfra-player.y == 0 then
     player.isTouchingGround = true
   end
@@ -88,6 +94,7 @@ function updatePlayer(dt)
   --applies value to the global object
   map.layers["Sprite Layer"].player.xv = xv
 
+  --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   if player.health > 3 then player.health = 3 end
 end
