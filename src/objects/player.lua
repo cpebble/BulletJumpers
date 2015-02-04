@@ -1,4 +1,5 @@
 local spriteLayer
+local player
 function initPlayer(Layer, entity)
   print("initPlayer")
   spriteLayer = map.layers["Sprite Layer"]
@@ -18,13 +19,14 @@ function initPlayer(Layer, entity)
   jumpTick = 0,
   midJump
   }
-  spriteLayer.player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
-  --spriteLayer.player.shape = love.physics.newRectangleShape(20, 29)
-  spriteLayer.player.shape = love.physics.newCircleShape(15,15,15) --breaks debug-mode
-  spriteLayer.player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
-  spriteLayer.player.fixture:setUserData("Player")
-  spriteLayer.player.body:setLinearDamping(2)
-  spriteLayer.player.body:setFixedRotation(false)
+  player = spriteLayer.player
+  player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
+  player.shape = love.physics.newCircleShape(15,15,15) --breaks debug-mode
+  player.fixture = love.physics.newFixture(spriteLayer.player.body, spriteLayer.player.shape, 1)
+  player.fixture:setUserData("Player")
+  player.body:setLinearDamping(2)
+  player.body:setFixedRotation(false)
+  
 end
 
 function drawPlayer()
@@ -97,4 +99,10 @@ function updatePlayer(dt)
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()
   if player.health > 3 then player.health = 3 end
+end
+
+function changeHealth(damage, amount)
+  if damage then player.health = player.health - amount
+  else player.health = player.health + amount
+  end
 end

@@ -75,6 +75,12 @@
  <objectgroup name="Entities">
   <object name="Player" type="Object" x="23" y="496"/>
   <object name="Goal" type="Object" x="612" y="736" width="25" height="30"/>
+  <object type="Spike" gid="63" x="477" y="542">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="damage" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Foreground" width="40" height="25">
   <data encoding="csv">

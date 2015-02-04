@@ -175,6 +175,22 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          name = "",
+          type = "Spike",
+          shape = "rectangle",
+          x = 477,
+          y = 542,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          gid = 63,
+          visible = true,
+          properties = {
+            ["collidable"] = "true",
+            ["damage"] = "2"
+          }
         }
       }
     },

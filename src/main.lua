@@ -46,13 +46,29 @@ else drawMenu() end
 end
 
 function beginContact(a, b, coll) --this function is not very reliable
-if a:getUserData() == "Player" or b:getUserData() == "Player" then
+if a:getUserData() == "Player" then
   map.layers["Sprite Layer"].player.jumpTick = 0
   map.layers["Sprite Layer"].player.midJump = false
   map.layers["Sprite Layer"].player.isTouchingGround = true
   print("PlayerContact")
   if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
-  if a:getUserData() == "Spike" or b:getUserData() == "Spike" then assert(false, "SPIKES!!!") end
+  if type(b:getUserData()) == "table" then
+    if b:getUserData().object.type == "Spike" then
+      changeHealth(true, b:getUserData().object.damage)
+    end
+  end
+end
+if b:getUserData() == "Player" then
+  map.layers["Sprite Layer"].player.jumpTick = 0
+  map.layers["Sprite Layer"].player.midJump = false
+  map.layers["Sprite Layer"].player.isTouchingGround = true
+  print("PlayerContact")
+  if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
+  if type(a:getUserData()) == "table" then
+    if a:getUserData().object.type == "Spike" then
+      changeHealth(true, 1)
+    end
+  end
 end
 end
 
