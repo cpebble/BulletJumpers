@@ -200,8 +200,8 @@ return {
           properties = {}
         },
         {
-          name = "Spike",
-          type = "Enemy",
+          name = "",
+          type = "Spike",
           shape = "rectangle",
           x = 288,
           y = 256,
@@ -211,12 +211,13 @@ return {
           gid = 59,
           visible = true,
           properties = {
+            ["collidable"] = "true",
             ["damage"] = "3"
           }
         },
         {
-          name = "Spike",
-          type = "Enemy",
+          name = "Enemy",
+          type = "Spike",
           shape = "rectangle",
           x = 320,
           y = 256,
@@ -226,6 +227,7 @@ return {
           gid = 59,
           visible = true,
           properties = {
+            ["collidable"] = "true",
             ["damage"] = "3"
           }
         }
