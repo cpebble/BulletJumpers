@@ -102,7 +102,23 @@ function updatePlayer(dt)
 end
 
 function changeHealth(damage, amount)
-  if damage then player.health = player.health - amount
-  else player.health = player.health + amount
+  if not amount == nil then
+    if damage then player.health = player.health - amount
+    else player.health = player.health + amount
+    end
+  end
+end
+
+function playerContact(p, other, coll)
+  player.jumpTick = 0
+  player.midJump = false
+  player.isTouchingGround = true
+  if other:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
+  if type(other:getUserData()) == "table" then --properties are stored in tables. anything in here will be set in tiled
+      print("Object contact")
+      if other:getUserData().object.type == "Spike" then
+        changeHealth(true, other:getUserData().object.properties.damage)
+      end
+    
   end
 end

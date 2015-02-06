@@ -22,7 +22,6 @@ function drawMenu()
 end
 
 function handleMenuClick(x, y, button)
-print("handleGui")
 --changes x and y value to be relative to screen-size, so it works with all resolution 
   x = x*(1920/love.graphics.getWidth())
   y = y*(1080/love.graphics.getHeight())
@@ -35,9 +34,7 @@ print("handleGui")
   end
 end
 function handleMenuKey(key, unicode)
-print("HandleMenu")
 if key == "escape" then
-  print("HandleEscape")
   back()
 end
 end

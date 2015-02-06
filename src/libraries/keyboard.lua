@@ -1,19 +1,22 @@
 require "gui"
 function love.keypressed(key,unicode)
-  local player = map.layers["Sprite Layer"].player
-  --if key == "up" --and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
-  if key == "up" and player.isTouchingGround then player.midJump = true end
-  map.layers["Sprite Layer"].player.isTouchingGround = false
+  if not inMenu then
+    local player = map.layers["Sprite Layer"].player
+    --if key == "up" --and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
+    if key == "up" and player.isTouchingGround then player.midJump = true end
+    player.isTouchingGround = false
+  end
 end
 function love.keyreleased(key,unicode)
   if not inMenu then
+  local player = map.layers["Sprite Layer"].player
   fade = 0.0 -- not working ;(
   mapHandleKeyboard(key, unicode) -- Debug is the last thing to run
   if debug then -- various debugging shit
     if key == "+" then
-      map.layers["Sprite Layer"].player.health = map.layers["Sprite Layer"].player.health + 1
+      player.health = player.health + 1
     elseif key == "-" then
-      map.layers["Sprite Layer"].player.health = map.layers["Sprite Layer"].player.health - 1
+      player.health = player.health - 1
     end
   end
   if key == "up" then map.layers["Sprite Layer"].player.midJump = false end

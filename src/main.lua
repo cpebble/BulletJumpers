@@ -47,36 +47,18 @@ end
 
 function beginContact(a, b, coll) --this function is not very reliable
 if a:getUserData() == "Player" then
-  map.layers["Sprite Layer"].player.jumpTick = 0
-  map.layers["Sprite Layer"].player.midJump = false
-  map.layers["Sprite Layer"].player.isTouchingGround = true
-  print("PlayerContact")
-  if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
-  if type(b:getUserData()) == "table" then
-    if b:getUserData().object.type == "Spike" then
-      changeHealth(true, b:getUserData().object.damage)
-    end
-  end
+  playerContact(a, b, coll)
 end
 if b:getUserData() == "Player" then
-  map.layers["Sprite Layer"].player.jumpTick = 0
-  map.layers["Sprite Layer"].player.midJump = false
-  map.layers["Sprite Layer"].player.isTouchingGround = true
-  print("PlayerContact")
-  if a:getUserData() == "Goalpost" or b:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
-  if type(a:getUserData()) == "table" then
-    if a:getUserData().object.type == "Spike" then
-      changeHealth(true, 1)
-    end
-  end
+  playerContact(b, a, coll)
 end
 end
 
 function endContact(a, b, coll)
-print("EndContact")
+--print("EndContact")
 if a:getUserData() == "Player" or b:getUserData() == "Player" then
   --map.layers["Sprite Layer"].player.isTouchingGround = false
-  print("PlayerEndContact")
+  --print("PlayerEndContact")
 end
 end
 function postSolve(a, b, coll, norm, tang)

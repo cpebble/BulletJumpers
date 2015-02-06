@@ -25,6 +25,18 @@ return {
       properties = {},
       tiles = {
         {
+          id = 0,
+          properties = {
+            ["type"] = "ground"
+          }
+        },
+        {
+          id = 1,
+          properties = {
+            ["type"] = "ground"
+          }
+        },
+        {
           id = 34,
           objectGroup = {
             type = "objectgroup",
