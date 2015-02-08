@@ -17,7 +17,8 @@ function initPlayer(Layer, entity)
   y = entity.y,
   health = 3,
   jumpTick = 0,
-  midJump
+  midJump,
+  onWall
   }
   player = spriteLayer.player
   player.body = love.physics.newBody(world, spriteLayer.player.x + spriteLayer.player.w/2,spriteLayer.player.y + spriteLayer.player.h,"dynamic")
@@ -41,8 +42,7 @@ function updatePlayer(dt)
   
   local xv, y = player.xv, 0
   local ts = 75 --timescale
-  local arfg = player.x
-  local gfra = player.y
+  local sx,sy = player.body:getLinearVelocity()
   --if down("down") then y = y + 2002 end
   --process player input
   if down("up") and player.midJump then 
@@ -57,12 +57,9 @@ function updatePlayer(dt)
     if down("left") then xv = xv-3*dt*ts end
     if down("right") then xv = xv+3*dt*ts end
   end
+  if down("down") then player.onWall = false end
   --basic movement
   player.body:applyForce(xv*dt*ts, y)
-  
-  --if arfg-player.x == 0 and not (down("left") or down("right")) and math.abs(xv) > 100 then
-  --  xv = 0
-  --end
   
   --stand still if sufficiently low speed
   if math.abs(xv) < 30 then
@@ -72,9 +69,28 @@ function updatePlayer(dt)
       xv = xv - 1*dt*ts
     end
   end
-  --maybe helps make collision more reliable
-  if gfra-player.y == 0 then
+  
+  if math.abs(sx) < 10 then
+    --clings to wall
+    if player.onWall then
+      player.body:applyForce(0,-300*dt*ts)
+      print("on the wall")
+    end
+    --stop speed when hitting wall
+    if sx == 0 then
+      xv = 0
+      if sy ~= 0 then
+        player.onWall = true
+      end
+    end
+  else
+    player.onWall = false
+  end
+  
+  --collision with ground
+  if sy == 0 then
     player.isTouchingGround = true
+    --TODO use STI to prevent this from applying to roofs
   end
   
   --controls momentum increase when at full speed
@@ -112,7 +128,7 @@ end
 function playerContact(p, other, coll)
   player.jumpTick = 0
   player.midJump = false
-  player.isTouchingGround = true
+  --player.isTouchingGround = true
   if other:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
   if type(other:getUserData()) == "table" then --properties are stored in tables. anything in here will be set in tiled
       print("Object contact")
