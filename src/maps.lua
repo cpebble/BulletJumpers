@@ -46,7 +46,7 @@ function drawMap()
   
   love.graphics.push()
   love.graphics.translate(tx,ty)
-  map:setDrawRange(tx, ty, ww, wh)
+  map:setDrawRange(tx, ty, ww*2, wh)
   map:draw()
   if debug then
     love.graphics.setColor(255, 255, 0, 255)

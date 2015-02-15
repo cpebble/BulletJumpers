@@ -43,19 +43,18 @@ function updatePlayer(dt)
   local xv, y = player.xv, 0
   local ts = 75 --timescale
   local sx,sy = player.body:getLinearVelocity()
-  --if down("down") then y = y + 2002 end
   --process player input
-  if down("up") and player.midJump then 
+  if down(options.jumpKey) and player.midJump then 
     y = (-1500+math.pow(player.jumpTick,1.7))*dt*ts
     if y >= 0 then y = 0 end
     player.jumpTick = player.jumpTick+dt*100
   end
-  if down("left") then xv = xv-player.momentum/30*dt*ts end
-  if down("right") then xv = xv+player.momentum/30*dt*ts end
+  if down(options.leftKey) then xv = xv-player.momentum/30*dt*ts end
+  if down(options.rightKey) then xv = xv+player.momentum/30*dt*ts end
   --allows for proper movement with minimal momentum
   if math.abs(player.momentum) < 50 then
-    if down("left") then xv = xv-3*dt*ts end
-    if down("right") then xv = xv+3*dt*ts end
+    if down(options.leftKey) then xv = xv-3*dt*ts end
+    if down(options.rightKey) then xv = xv+3*dt*ts end
   end
   if down("down") then player.onWall = false end
   --basic movement
@@ -106,11 +105,11 @@ function updatePlayer(dt)
   end
   --controls momentum drop when not moving
   if player.momentum > math.abs(xv) then
-    map.layers["Sprite Layer"].player.momentum = player.momentum - 3*dt*ts
+    player.momentum = player.momentum - 3*dt*ts
   end
   
   --applies value to the global object
-  map.layers["Sprite Layer"].player.xv = xv
+  player.xv = xv
 
   --synchronizes sprite with actual placement
   player.x, player.y = player.body:getWorldCenter()

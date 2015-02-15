@@ -6,12 +6,13 @@ require "libraries.keyboard"
 require "objects"
 require "gui"
 require "hud"
-
+require "options"
 --gets called when the game starts
 function love.load()
   debug = false
   love.filesystem.load("gui/main.lua")()
   
+  loadOptions()
   --double used for menu-transition
   --is inactive when -1
   fade = -1.0

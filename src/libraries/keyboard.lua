@@ -1,4 +1,5 @@
 require "gui"
+require "objects.player"
 function love.keypressed(key,unicode)
   if not inMenu then
     local player = map.layers["Sprite Layer"].player
@@ -14,6 +15,7 @@ function love.keypressed(key,unicode)
         player.body:applyForce(-20000,-10000)
       end
     end
+   
   end
 end
 function love.keyreleased(key,unicode)
