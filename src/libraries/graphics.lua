@@ -13,6 +13,3 @@ function drawMenu()
     love.graphics.setColor({255,255,255})
   end
 end
-function changeFullScreen()
-if fullscreen then love.window.setMode(1360,768, {fullscreen = false}) fullscreen = false else love.window.setMode(1360,768, {fullscreen = true}) fullscreen = true end
-end
