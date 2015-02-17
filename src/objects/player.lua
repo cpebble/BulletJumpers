@@ -69,18 +69,22 @@ function updatePlayer(dt)
     end
   end
   
-  if math.abs(sx) < 10 then
+  if math.abs(sx) < 20 then
     --clings to wall
     if player.onWall then
       player.body:applyForce(0,-300*dt*ts)
-      print("on the wall")
     end
     --stop speed when hitting wall
     if sx == 0 then
-      xv = 0
-      if sy ~= 0 then
+      if sy ~= 0 and not player.isTouchingGround then
         player.onWall = true
       end
+      if player.isTouchingGround and not player.onWall then
+        if xv ~= 0 then
+          player.body:applyForce(-20*xv,-200)
+        end
+      end
+      xv = 0
     end
   else
     player.onWall = false
@@ -89,6 +93,7 @@ function updatePlayer(dt)
   --collision with ground
   if sy == 0 then
     player.isTouchingGround = true
+    player.onWall = false
     --TODO use STI to prevent this from applying to roofs
   end
   

@@ -63,4 +63,8 @@ function rezizeMap()
 end
 function mapHandleKeyboard(key, unicode)
   if key== "escape" then love.filesystem.load("gui/levels.lua")() end
+  if key==options.jumpKey then 
+    map.layers["Sprite Layer"].player.midJump = false
+    map.layers["Sprite Layer"].player.isTouchingGround = false
+  end
 end

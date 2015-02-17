@@ -7,12 +7,15 @@ function love.keypressed(key,unicode)
     if key == "up" and player.isTouchingGround then 
       player.midJump = true
       player.isTouchingGround = false
+      print("works")
     end
     if player.onWall then
       if key == "right" then
         player.body:applyForce(20000,-10000)
+        player.xv = 100
       elseif key == "left" then
         player.body:applyForce(-20000,-10000)
+        player.xv = -100
       end
     end
    
