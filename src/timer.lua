@@ -11,7 +11,6 @@ function startTimer()
   timerShouldBeDrawn = true
 end
 function updateTimer(dt)
-print("timer = "..time)
   if timerStarted then 
     time = math.floor((love.timer.getTime() - startTime)*100)
     seconds = math.floor(time/100)
