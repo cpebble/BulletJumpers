@@ -133,7 +133,7 @@ function playerContact(p, other, coll)
   player.jumpTick = 0
   player.midJump = false
   --player.isTouchingGround = true
-  if other:getUserData() == "Goalpost" then love.filesystem.load("gui/LOLWIN.lua")() end
+  if other:getUserData() == "Goalpost" then playerWin() end
   if type(other:getUserData()) == "table" then --properties are stored in tables. anything in here will be set in tiled
       print("Object contact")
       if other:getUserData().object.type == "Spike" then

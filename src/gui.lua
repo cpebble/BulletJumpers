@@ -6,6 +6,7 @@ local image
 local menuButtons
 local back
 function loadMenu(menubuttons, menuImage, backFunc)
+  isSpecialGui = false
   back = backFunc
   love.graphics.setColor(255, 255, 255, 255)
   menuButtons = menubuttons
@@ -20,6 +21,14 @@ function drawMenu()
     love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
     love.graphics.setColor({255,255,255})
   end--]]
+end
+function loadSpecialMenu(menubuttons, menuImage, backFunc) --For shit like options menu, highscore menu etc. that needs custom cuntent
+  isSpecialGui = true
+  back = backFunc
+  love.graphics.setColor(255, 255, 255, 255)
+  menuButtons = menubuttons
+  image = menuImage
+  inMenu = true
 end
 
 function handleMenuClick(x, y, button)

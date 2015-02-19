@@ -1,3 +1,5 @@
+require "timer" --Safe to assume The timer is part of the HUD right?
+
 local mainHUD = love.graphics.newImage("graphics/HUD/HUD.png")
 local healthImg = {}
 local shieldImg
@@ -23,4 +25,5 @@ function drawHud()
   love.graphics.rectangle("fill",1820*(love.graphics.getWidth()/1920),110-player.momentum/maxMomentum*100,50,player.momentum/maxMomentum*100)
   love.graphics.setColor({0,200,0})
   love.graphics.rectangle("fill",1820*(love.graphics.getWidth()/1920),110-math.abs(player.xv)/maxMomentum*100,50,math.abs(player.xv)/maxMomentum*100)
+  drawTimer()
 end

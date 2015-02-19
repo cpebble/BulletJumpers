@@ -76,3 +76,8 @@ end
 function love.mousepressed(x, y, button)
   processClick(x,y,button)
 end
+function playerWin()
+  endTimer()
+  love.filesystem.load("gui/highscores.lua")()
+  
+end

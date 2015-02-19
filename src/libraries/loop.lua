@@ -4,7 +4,7 @@ function gameLoop(dt)
   world:update(dt)
   --updateObjects(dt)
   updateMap(dt)
-  updateTimer()
+  updateTimer(dt)
 end
 
 function animateFade(dt)

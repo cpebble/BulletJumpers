@@ -1,4 +1,5 @@
 require "objects"
+require "timer"
 local sti = require "STI"
 mapLoaded = false
 
@@ -20,12 +21,14 @@ function loadMap(mapPath)
   local spriteLayer = map.layers["Sprite Layer"]
   -- Run the initialization process for the various objects
   initializeObjects(spriteLayer)
+  startTimer()
   function spriteLayer:draw()
   drawObjects()
   end
   function spriteLayer:update(dt)
   
   end
+  
 end
 
 function updateMap(dt)
