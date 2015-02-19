@@ -38,4 +38,8 @@ function love.keyreleased(key,unicode)
   handleMenuKey(key, unicode)
   end
   if key == "k" and debug then debug = false elseif key == "k" and not debug then debug = true end
+  if debug then
+    --Debugging goes here
+    if key == "q" then playerWin() end
+  end
 end

@@ -19,13 +19,9 @@ end
 
 function drawMenu()
   love.graphics.draw(image ,0 ,0 ,0 ,love.graphics.getWidth()/1920, love.graphics.getHeight()/1080)
-  --[[if fade >= 0 then
-    love.graphics.setColor({0,0,0,(-math.abs(math.cos(fade*math.pi))+1)*255})
-    love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
-    love.graphics.setColor({255,255,255})
-  end--]]
+  if isSpecialGui then specialDrawFunc() end
 end
-function loadSpecialMenu(menubuttons, menuImage, backFunc, drawFunc, updateFunc, loadFunc) --For shit like options menu, highscore menu etc. that needs custom cuntent
+function loadSpecialMenu(menubuttons, menuImage, backFunc, loadFunc, drawFunc, updateFunc) --For shit like options menu, highscore menu etc. that needs custom cuntent
   isSpecialGui = true
   specialDrawFunc = drawFunc
   specialLoadFunc = loadFunc
