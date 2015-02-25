@@ -18,6 +18,7 @@ function loadMenu(menubuttons, menuImage, backFunc)
 end
 
 function drawMenu()
+  love.graphics.setColor(255,255,255)
   love.graphics.draw(image ,0 ,0 ,0 ,love.graphics.getWidth()/1920, love.graphics.getHeight()/1080)
   if isSpecialGui then specialDrawFunc() end
 end

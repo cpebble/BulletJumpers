@@ -3,7 +3,7 @@ menuButtons = {
 }
 image = love.graphics.newImage("graphics/highscores.png")
 back = function() love.filesystem.load("gui/campaign.lua") end
-loadFunc = function() score = timer.seconds..":"..timer.microSeconds end
-drawFunc = function() love.graphics.print(score,(love.graphics.getWidth()/1920)*778 ,(love.graphics.getHeight()/1080)*960) end
+loadFunc = function() score = timer.seconds..":"..timer.microSeconds print(score) end
+drawFunc = function() love.graphics.print(55,(love.graphics.getWidth()/1920)*778 ,(love.graphics.getHeight()/1080)*960) end
 updateFunc = function() end
 loadSpecialMenu(menuButtons, image, back, loadFunc, drawFunc, updateFunc)
