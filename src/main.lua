@@ -3,6 +3,7 @@ require "libraries.loop"
 require "libraries.graphics"
 require "libraries.click"
 require "libraries.keyboard"
+require "libraries.animate"
 require "objects"
 require "gui"
 require "hud"
@@ -10,6 +11,7 @@ require "options"
 --gets called when the game starts
 function love.load()
   debug = false
+  animating = false
   love.filesystem.load("gui/main.lua")()
   
   loadOptions()
@@ -25,11 +27,10 @@ function love.load()
 end
 --the game loop
 function love.update(dt)
-  if inMenu then
-    drawMenu()
-  end
   if not inMenu then
     gameLoop(dt)
+  elseif animating then
+    progressCutscene(dt)
   elseif fade >= 0 then
     animateFade(dt)
   end
@@ -43,7 +44,13 @@ if not inMenu then
   visualize() 
   drawMap()
   drawHud()
-else drawMenu() end
+else 
+  if animating then
+    drawScene()
+  else
+    drawMenu()
+  end 
+end
 end
 
 function beginContact(a, b, coll) --this function is not very reliable
@@ -74,6 +81,7 @@ end
 end
 
 function love.mousepressed(x, y, button)
+  if animating then finishScene() end
   processClick(x,y,button)
 end
 function playerWin()

@@ -1,6 +1,7 @@
 require "gui"
 require "objects.player"
 function love.keypressed(key,unicode)
+  if animating then finishScene() end
   if not inMenu then
     local player = map.layers["Sprite Layer"].player
     --if key == "up" --and player.isTouchingGround then player.body:applyLinearImpulse(0, -500) end
