@@ -13,3 +13,8 @@ function drawMenu()
     love.graphics.setColor({255,255,255})
   end
 end
+function drawScene()
+  local bg = love.graphics.newImage("cutscenes/graphics/bg0.png")
+  love.graphics.draw(bg,sceneProgress*50,0)
+  --scale = 1+(v*t)/d
+end
