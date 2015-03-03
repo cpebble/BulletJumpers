@@ -1,6 +1,11 @@
 function loadOptions()
   --Declare the options var and clear it
   options = {}
+    options.playerName = "lolrus"
+    options.fullscreen = false
+    options.jumpKey = "up"
+    options.leftKey = "left"
+    options.rightKey = "right"
   local words = {}
   local s = love.filesystem.read("options.pref")
   --splits the string from filesystem
@@ -13,13 +18,14 @@ function loadOptions()
     if v == "rightKey" then options.rightKey = words[i+1]end
     if v == "leftKey" then options.leftKey = words[i+1]end
     if v == "fullscreen" then if words[i+1] == "true" then options.fullscreen = "true" fullscreen = true love.window.setMode(1360,768, {fullscreen = true}) else options.fullscreen = "false" end end
+    if v == "playerName" then options.playerName = words[i+1] end
   end
   
   
 end
 
 function saveOptions()
-  local optionString = "jumpKey;"..options.jumpKey..";rightKey;"..options.rightKey..";leftKey;"..options.leftKey..";fullscreen;"..options.fullscreen
+  local optionString = "jumpKey;"..options.jumpKey..";rightKey;"..options.rightKey..";leftKey;"..options.leftKey..";fullscreen;"..options.fullscreen..";playerName;"..options.playerName
   love.filesystem.write("options.pref",optionString)
   
 end

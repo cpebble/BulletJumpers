@@ -4,5 +4,5 @@ menuButtons = {
 
 image = love.graphics.newImage("graphics/options.png")
 
-back = love.filesystem.load("gui/main.lua")
+back = function()  saveOptions() love.filesystem.load("gui/main.lua")() end
 loadMenu(menuButtons, image, back)

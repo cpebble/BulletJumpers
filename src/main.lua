@@ -19,7 +19,7 @@ function love.load()
   
   maxMomentum = 500
   
-  normalFont = love.graphics.newFont(12)
+  normalFont = love.graphics.newFont(16)
   pauseFont = love.graphics.newFont(50)
   love.graphics.setBackgroundColor(54, 172, 248)  
 end
